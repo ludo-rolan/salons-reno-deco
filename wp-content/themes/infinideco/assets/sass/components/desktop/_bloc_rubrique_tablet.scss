@@ -1,0 +1,14 @@
+.bloc_rubrique{
+	// .bloc_rubrique_head
+	&_head{
+		display: flex;
+		@include justify-content(space-between);
+		margin-bottom: 5px;
+		.default-title{
+			margin-bottom: 0;
+		}
+		.read_more{
+			@include align-self(flex-end);
+		}
+	}
+}

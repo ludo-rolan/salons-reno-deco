@@ -1,0 +1,35 @@
+diff --git a/wp-content/plugins/xml-sitemap-feed/includes/core.php b/wp-content/plugins/xml-sitemap-feed/includes/core.php
+index 88027b6..81a5691 100644
+--- a/wp-content/plugins/xml-sitemap-feed/includes/core.php
++++ b/wp-content/plugins/xml-sitemap-feed/includes/core.php
+@@ -102,8 +102,9 @@ class XMLSitemapFeed {
+ 				$this->defaults['post_types'][$name]['active'] = '1';
+ 		
+ 		if ( isset($this->defaults['post_types']['post']) ) {
+-			if (wp_count_posts('post')->publish > 500)
+-				$this->defaults['post_types']['post']['archive'] = 'yearly';
++			// Disable this query
++			//if (wp_count_posts('post')->publish > 500)
++			$this->defaults['post_types']['post']['archive'] = 'yearly';
+ 			$this->defaults['post_types']['post']['priority'] = '0.7';
+ 			$this->defaults['post_types']['post']['dynamic_priority'] = '1';
+ 		}
+diff --git a/wp-content/plugins/xml-sitemap-feed/includes/feed-sitemap-news.php b/wp-content/plugins/xml-sitemap-feed/includes/feed-sitemap-news.php
+index 9acc0f6..dfe7727 100644
+--- a/wp-content/plugins/xml-sitemap-feed/includes/feed-sitemap-news.php
++++ b/wp-content/plugins/xml-sitemap-feed/includes/feed-sitemap-news.php
+@@ -64,11 +64,11 @@ if ( have_posts() ) :
+ 			<news:publication>
+ 				<news:name><?php 
+ 					if(!empty($options['name']))
+-						echo apply_filters( 'the_title_xmlsitemap', $options['name'] );
++						echo apply_filters( 'publication_name_xmlsitemap', $options['name'] );
+ 					elseif(defined('XMLSF_GOOGLE_NEWS_NAME')) 
+-						echo apply_filters( 'the_title_xmlsitemap', XMLSF_GOOGLE_NEWS_NAME ); 
++						echo apply_filters( 'publication_name_xmlsitemap', XMLSF_GOOGLE_NEWS_NAME ); 
+ 					else 
+-						echo apply_filters( 'the_title_xmlsitemap', get_bloginfo('name') ); ?></news:name>
++						echo apply_filters( 'publication_name_xmlsitemap', get_bloginfo('name') ); ?></news:name>
+ 				<news:language><?php 
+ 					if ( taxonomy_exists('language') ) {
+ 						$lang = get_the_terms($post->ID,'language');

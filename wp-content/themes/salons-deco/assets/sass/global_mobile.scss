@@ -1,0 +1,20 @@
+@charset "UTF-8";
+@import "compass/css3";
+
+@import "../../../core/assets/bootstrap-sass/sass/fonts";
+
+@import "../../../core/assets/bootstrap-sass/sass/variables";
+@import "utils/variables";
+
+@import "../../../core/assets/bootstrap-sass/sass/bootstrap_v3";
+
+@import "../../../core/assets/bootstrap-sass/sass/responsive-v3";
+@import "../../../core/assets/bootstrap-sass/sass/mobile";
+
+
+@import "components/base/general";
+@import "components/base/header";
+@import "components/base/sidebar";
+@import "components/base/footer";
+@import "components/base/bandeau-partners";
+@import "components/base/only_mobile";

@@ -1,0 +1,18 @@
+.bloc_rubrique{
+	// .bloc_rubrique_head
+	&_head{
+		@include commuters-sans-bold;
+		display: flex;
+		@include justify-content(space-between);
+		margin-bottom: 34px;
+		.default-title{
+			@include commuters-sans-extrabold;
+			font-size: 28px;
+			margin-bottom: 0;
+		}
+		.read_more{
+			@include commuters-sans-bold;
+			@include align-self(flex-end);
+		}
+	}
+}

@@ -1,0 +1,10 @@
+--- a/wp-content/plugins/wpml-media-translation/classes/class-wpml-media.php
++++ b/wp-content/plugins/wpml-media-translation/classes/class-wpml-media.php
+@@ -62,6 +62,7 @@ class WPML_Media
+ 			$total_attachments_prepared = $wpdb->prepare("
+                 SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = %s AND ID NOT IN
+                 (SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s)", array('attachment', 'wpml_media_processed'));
++			$total_attachments_prepared = apply_filters('rw_force_cache_queries', $total_attachments_prepared);
+ 			$total_attachments = $wpdb->get_var( $total_attachments_prepared );
+ 
+ 			if ( $total_attachments ) {

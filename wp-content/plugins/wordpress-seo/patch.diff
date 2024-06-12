@@ -1,0 +1,126 @@
+diff --git a/wp-content/plugins/wordpress-seo/admin/class-admin.php b/wp-content/plugins/wordpress-seo/admin/class-admin.php
+index 143092f..b3693f8 100644
+--- a/wp-content/plugins/wordpress-seo/admin/class-admin.php
++++ b/wp-content/plugins/wordpress-seo/admin/class-admin.php
+@@ -47,7 +47,8 @@ class WPSEO_Admin {
+ 			'dashboard_widget'      => new Yoast_Dashboard_Widget(),
+ 		);
+ 
+-		if ( in_array( $pagenow, array( 'post-new.php', 'post.php', 'edit.php' ) ) ) {
++		// Disabled : conflict with hikari-category-permalink
++		if ( false && in_array( $pagenow, array( 'post-new.php', 'post.php', 'edit.php' ) ) ) {
+ 			$this->admin_features['primary_category'] = new WPSEO_Primary_Term_Admin();
+ 		}
+ 
+diff --git a/wp-content/plugins/wordpress-seo/frontend/class-frontend.php b/wp-content/plugins/wordpress-seo/frontend/class-frontend.php
+index f7e2f43..bcffa6f 100644
+--- a/wp-content/plugins/wordpress-seo/frontend/class-frontend.php
++++ b/wp-content/plugins/wordpress-seo/frontend/class-frontend.php
+@@ -152,10 +152,14 @@ class WPSEO_Frontend {
+ 			add_filter( 'wpseo_title', array( $this, 'title_test_helper' ) );
+ 		}
+ 
+-		$primary_category = new WPSEO_Frontend_Primary_Category();
+-		$primary_category->register_hooks();
++		// conflict with hikari-category-permalink
++		if ( false ) {
++			$primary_category = new WPSEO_Frontend_Primary_Category();
++			$primary_category->register_hooks();
+ 
+-		$this->hooks = array( $primary_category );
++			$this->hooks = array( $primary_category );
++		}
++		
+ 	}
+ 
+ 	/**
+
+diff --git a/wp-content/plugins/wordpress-seo/inc/class-wpseo-meta.php b/wp-content/plugins/wordpress-seo/inc/class-wpseo-meta.php
+index adcf8e452..005288956 100644
+--- a/wp-content/plugins/wordpress-seo/inc/class-wpseo-meta.php
++++ b/wp-content/plugins/wordpress-seo/inc/class-wpseo-meta.php
+@@ -1030,24 +1030,27 @@ class WPSEO_Meta {
+ 	 * @return array
+ 	 */
+ 	public static function keyword_usage( $keyword, $post_id ) {
+-		$get_posts = new WP_Query(
+-			array(
+-				'meta_key'       => '_yoast_wpseo_focuskw',
+-				'meta_value'     => $keyword,
+-				'post__not_in'   => array( $post_id ),
+-				'fields'         => 'ids',
+-				'post_type'      => 'any',
+-
+-				/*
+-				 * We only need to return zero, one or two results:
+-				 * - Zero: keyword hasn't been used before
+-				 * - One: Keyword has been used once before
+-				 * - Two or more: Keyword has been used twice before
+-				 */
+-				'posts_per_page' => 2,
+-			)
+-		);
++		// only if $keyword not empty
++		if ( $keyword ){
++			$get_posts = new WP_Query(
++				array(
++					'meta_key'       => '_yoast_wpseo_focuskw',
++					'meta_value'     => $keyword,
++					'post__not_in'   => array( $post_id ),
++					'fields'         => 'ids',
++					'post_type'      => 'any',
++
++					/*
++					 * We only need to return zero, one or two results:
++					 * - Zero: keyword hasn't been used before
++					 * - One: Keyword has been used once before
++					 * - Two or more: Keyword has been used twice before
++					 */
++					'posts_per_page' => 2,
++				)
++			);
+ 
+-		return $get_posts->posts;
++			return $get_posts->posts;
++		} else return [] ;
+ 	}
+ } /* End of class */
+ diff --git a/wp-content/plugins/wordpress-seo/admin/metabox/class-metabox.php b/wp-content/plugins/wordpress-seo/admin/metabox/class-metabox.php
+index 5e5eea4b1..28bc80644 100644
+--- a/wp-content/plugins/wordpress-seo/admin/metabox/class-metabox.php
++++ b/wp-content/plugins/wordpress-seo/admin/metabox/class-metabox.php
+@@ -305,7 +305,7 @@ class WPSEO_Metabox extends WPSEO_Meta {
+ 			$content_sections[] = $this->social_admin->get_meta_section();
+ 		}
+ 
+-		if ( current_user_can( 'manage_options' ) || $this->options['disableadvanced_meta'] === false ) {
++		if ( current_user_can( apply_filters('manage_seo_options', 'manage_options') ) || $this->options['disableadvanced_meta'] === false ) {
+ 			$content_sections[] = $this->get_advanced_meta_section();
+ 		}
+ 
+diff --git a/wp-content/plugins/wordpress-seo/inc/class-wpseo-meta.php b/wp-content/plugins/wordpress-seo/inc/class-wpseo-meta.php
+index 005288956..9bbdc7d0c 100644
+--- a/wp-content/plugins/wordpress-seo/inc/class-wpseo-meta.php
++++ b/wp-content/plugins/wordpress-seo/inc/class-wpseo-meta.php
+@@ -388,7 +388,7 @@ class WPSEO_Meta {
+ 
+ 				$options = WPSEO_Options::get_options( array( 'wpseo', 'wpseo_titles', 'wpseo_internallinks' ) );
+ 
+-				if ( ! current_user_can( 'manage_options' ) && $options['disableadvanced_meta'] ) {
++				if ( ! current_user_can( apply_filters('manage_seo_options', 'manage_options') ) && $options['disableadvanced_meta'] ) {
+ 					return array();
+ 				}
+
+diff --git a/wp-content/plugins/wordpress-seo/admin/metabox/class-metabox.php b/wp-content/plugins/wordpress-seo/admin/metabox/class-metabox.php
+index 28bc80644..c23b74427 100644
+--- a/wp-content/plugins/wordpress-seo/admin/metabox/class-metabox.php
++++ b/wp-content/plugins/wordpress-seo/admin/metabox/class-metabox.php
+@@ -417,7 +417,7 @@ class WPSEO_Metabox extends WPSEO_Meta {
+ 	function do_meta_box( $meta_field_def, $key = '' ) {
+ 		$content      = '';
+ 		$esc_form_key = esc_attr( self::$form_prefix . $key );
+-		$meta_value   = self::get_value( $key, $this->get_metabox_post()->ID );
++		$meta_value   = apply_filters( 'wpseo_do_meta_value_field_' . $key, self::get_value( $key, $this->get_metabox_post()->ID ) );
+ 
+ 		$class = '';
+ 		if ( isset( $meta_field_def['class'] ) && $meta_field_def['class'] !== '' ) {

@@ -1,0 +1,1563 @@
+.nl-body {
+	width: 100%;
+	padding: 80px 15px 50px 15px;
+	font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+.nl-body .btn-default{
+	color: #fff;
+}
+
+.nl-body.vpf div[class^='col-'],
+.nl-body.gm div[class^='col-']{
+	float: left;
+	position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.nl-body.mf .offers_item.selected,
+.nl-body.mf .offers_item.selected .check-box,
+.nl-body.vpf .offers_item.selected,
+.nl-body.vpf .offers_item.selected .check-box {
+	border-color: #ff1d5d
+}
+
+
+.nl-body.mf .offers_item.selected .check-box:after,
+.nl-body.vpf .offers_item.selected .check-box:after {
+	background-position: -86px 0
+}
+
+
+.nl-body.gm .offers_item.selected .check-box:after {
+	background-position: -71px 0
+}
+.nl-body.gm {
+	font-family: Oswald, "Helvetica Neue", Helvetica, Arial, sans-serif, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+.nl-body.gm .offers_item,
+.nl-body.gm .page-sub-title,
+.nl-body.gm .page-title {
+	font-family: Oswald, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+.nl-body.gm .offers_item.selected,
+.nl-body.gm .offers_item.selected .check-box {
+	border-color: #ebaa21
+}
+.nl-body.gm .sign-form .btn-default,
+.nl-body.gm .sign-form [type=radio]:checked+label span:after {
+	background-color: #ebaa21
+}
+
+.nl-body.mf .sign-form .btn-default,
+.nl-body.mf .sign-form [type=radio]:checked+label span:after,
+.nl-body.vpf .sign-form .btn-default,
+.nl-body.vpf .sign-form [type=radio]:checked+label span:after {
+	background-color: #ff1d5d
+}
+
+.nl-body.vpf {
+	font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body.vpf .offers_item,
+.nl-body.vpf .page-sub-title,
+.nl-body.vpf .page-title {
+	font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body.mf {
+	font-family: Suranna, "Helvetica Neue", Helvetica, Arial, sans-serif, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body.mf .offers_item,
+.nl-body.mf .page-sub-title,
+.nl-body.mf .page-title {
+	font-family: Suranna, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body.jlm {
+	font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body.jlm .offers_item,
+.nl-body.jlm .page-sub-title,
+.nl-body.jlm .page-title {
+	font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body.jlm .offers_item.selected,
+.nl-body.jlm .offers_item.selected .check-box {
+	border-color: #000
+}
+
+.nl-body.jlm .offers_item.selected .check-box:after {
+	background-position: -101px 0
+}
+
+.nl-body.jlm .sign-form .btn-default,
+.nl-body.jlm .sign-form [type=radio]:checked+label span:after {
+	background-color: #000
+}
+
+.nl-body.mt {
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body.mt .offers_item,
+.nl-body.mt .page-sub-title,
+.nl-body.mt .page-title {
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body.mt .offers_item.selected,
+.nl-body.mt .offers_item.selected .check-box {
+	border-color: #db2c34
+}
+
+.nl-body.mt .offers_item.selected .check-box:after {
+	background-position: -116px 0
+}
+
+.nl-body.mt .sign-form .btn-default,
+.nl-body.mt .sign-form [type=radio]:checked+label span:after {
+	background-color: #db2c34
+}
+
+.nl-body.mjmm {
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body.mjmm .offers_item,
+.nl-body.mjmm .page-sub-title,
+.nl-body.mjmm .page-title {
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body.mjmm .offers_item.selected,
+.nl-body.mjmm .offers_item.selected .check-box {
+	border-color: #82a545
+}
+
+.nl-body.mjmm .offers_item.selected .check-box:after {
+	background-position: -131px 0
+}
+
+.nl-body.mjmm .sign-form .btn-default,
+.nl-body.mjmm .sign-form [type=radio]:checked+label span:after {
+	background-color: #82a545
+}
+
+
+.nl-body.be {
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+.nl-body.be .offers_item,
+.nl-body.be .page-sub-title,
+.nl-body.be .page-title {
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body .offers_item,
+.nl-body .page-sub-title,
+.nl-body .page-title {
+	font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: 400
+}
+
+.nl-body.be .offers_item.selected,
+.nl-body.be .offers_item.selected .check-box {
+	border-color: #000
+}
+
+.nl-body.be .offers_item.selected .check-box:after {
+	background-position: -101px 0
+}
+
+.nl-body.be .sign-form .btn-default,
+.nl-body.be .sign-form [type=radio]:checked+label span:after {
+	background-color: #000
+}
+
+.nl-body .page-title {
+	font-size: 30px;
+	text-transform: uppercase
+}
+
+.nl-body .page-sub-title {
+	margin-bottom: 40px;
+	font-size: 20px
+}
+
+.nl-body .form-control {
+	height: 40px;
+	padding: 0 20px;
+	border-color: #e4e4e4;
+	border-radius: 0
+}
+
+.nl-body .form-horizontal .form-group {
+	margin-right: 0;
+	margin-left: 0
+}
+
+.nl-body .birthday-group .combodate {
+	display: block;
+	width: 100%;
+	overflow: hidden
+}
+
+.nl-body .birthday-group select {
+	display: inline-block;
+	height: 40px;
+	padding: 0 20px;
+	margin-left: -5px;
+	border: 1px solid #e4e4e4;
+	background-color: #fff;
+	background-image: url(../img/arrow-bottom.png);
+	background-repeat: no-repeat;
+	background-position: calc(100% - 10px) center;
+	background-size: 14px;
+	-webkit-appearance: none !important;
+	-moz-appearance: none !important;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	border-radius: 0
+}
+
+.nl-body .birthday-group select:first-child {
+	margin-left: 0
+}
+
+.nl-body .birthday-group select.day,
+.nl-body .birthday-group select.month {
+	width: 25% !important;
+	border-right: 0
+}
+
+.nl-body .birthday-group select.year {
+	width: 50% !important
+}
+
+.nl-body .block {
+	display: block !important
+}
+
+.nl-body .offers_item {
+	position: relative;
+	padding: 40px 50px 40px 130px;
+	margin-bottom: 20px;
+	overflow: hidden;
+	font-size: 18px;
+	border: 2px solid #e5e5e5
+}
+
+.nl-body .offers_const,
+.nl-body .offers_item:last-child {
+	margin-bottom: 0
+}
+
+.nl-body .offers_item.selected {
+	border-color: #ef2e25
+}
+
+.nl-body .offers_item label {
+	position: relative;
+	font-weight: 400;
+	cursor: pointer
+}
+
+.nl-body .offers_item [type=checkbox] {
+	position: absolute;
+	left: -9999px
+}
+
+.nl-body .offers_item [type=checkbox]+label {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	width: 100%;
+	height: 100%
+}
+
+.nl-body .offers_item .check-box {
+	position: absolute;
+	left: 50px;
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	margin-right: 30px;
+	vertical-align: middle;
+	border: 2px solid #000
+}
+
+.nl-body .offers_item.selected .check-box {
+	border-color: #e11924
+}
+
+.nl-body .offers_item.selected .check-box:after {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 12px;
+	height: 9px;
+	margin-top: -4px;
+	margin-left: -6px;
+	content: "";
+	background-image: url(../img/nl_sprite.png);
+	background-repeat: no-repeat;
+	background-position: -56px 0
+}
+
+.nl-body .offers_frequancy,
+.nl-body .offers_time {
+	margin-right: 20px
+}
+
+.nl-body .offers_frequancy:last-child,
+.nl-body .offers_time:last-child {
+	margin-right: 0
+}
+
+.nl-body .offers_frequancy:before,
+.nl-body .offers_time:before {
+	display: inline-block;
+	margin-right: 10px;
+	content: "";
+	vertical-align: middle;
+	background-image: url(../img/nl_sprite.png);
+	background-repeat: no-repeat
+}
+
+.nl-body .offers_frequancy:before {
+	width: 27px;
+	height: 27px;
+	background-position: 0 0
+}
+
+.nl-body .offers_time:before {
+	width: 24px;
+	height: 24px;
+	background-position: -30px 0
+}
+
+.nl-body .sign-form {
+	margin: 50px auto 0
+}
+
+.nl-body .sign-form .page-title {
+	margin-bottom: 60px
+}
+
+.nl-body .sign-form label {
+	font-weight: 400;
+	text-transform: uppercase
+}
+
+.nl-body .sign-form .error {
+	margin-top: 5px;
+	color: #ef2e25
+}
+
+.nl-body .sign-form [type=radio] {
+	position: absolute;
+	left: -9999px
+}
+
+.nl-body .sign-form [type=radio]+label span {
+	position: relative;
+	display: inline-block;
+	width: 21px;
+	height: 21px;
+	margin-right: 20px;
+	vertical-align: middle;
+	border: 1px solid #dfdfdf;
+	border-radius: 100px
+}
+
+.nl-body .sign-form [type=radio]:checked+label span:after {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 11px;
+	height: 11px;
+	margin-top: -6px;
+	margin-left: -6px;
+	content: "";
+	border-radius: 100px;
+	background-color: #ef2e25
+}
+
+.nl-body .sign-form .radio-inline {
+	padding: 0;
+	margin-right: 20px;
+	margin-bottom: 20px
+}
+
+.nl-body .sign-form .form-group {
+	margin-bottom: 30px
+}
+
+.nl-body .sign-form input[type=text] {
+	text-transform: lowercase
+}
+
+.nl-body .sign-form input[type=text]::-webkit-input-placeholder {
+	text-transform: uppercase;
+	color: #dcdcdc
+}
+
+.nl-body .sign-form input[type=text]::-moz-placeholder {
+	text-transform: uppercase;
+	color: #dcdcdc
+}
+
+.nl-body .sign-form input[type=text]:-ms-input-placeholder {
+	text-transform: uppercase;
+	color: #dcdcdc
+}
+
+.nl-body .sign-form input[type=text]:-moz-placeholder {
+	text-transform: uppercase;
+	color: #dcdcdc
+}
+
+.nl-body .sign-form .btn-default {
+	padding: 10px 20px;
+	font-size: 20px;
+	text-transform: uppercase;
+	border: 0;
+	background-color: #ef2e25
+}
+
+.nl-body .sign-form .help-block {
+	margin-top: 10px;
+	font-size: 12px;
+	text-transform: uppercase;
+	color: #000
+}
+
+.nl-body .nl-feature {
+	margin-top: 100px
+}
+
+.nl-body .nl-feature .page-title {
+	margin-bottom: 50px
+}
+
+.nl-body .nl-feature-item {
+	font-size: 18px;
+	text-align: center
+}
+
+.nl-body .nl-feature-item span[class$="-icon"] {
+	display: block;
+	margin: 0 auto 20px;
+	background-image: url(../img/nl_sprite.png);
+	background-repeat: no-repeat
+}
+
+.nl-body .nl-feature-item span[class^=book] {
+	width: 61px;
+	height: 77px;
+	background-position: 0 -40px
+}
+
+.nl-body .nl-feature-item span[class^=folder] {
+	width: 64px;
+	height: 77px;
+	background-position: -70px -40px
+}
+
+.nl-body .nl-feature-item span[class^=msg] {
+	width: 64px;
+	height: 77px;
+	background-position: -140px -40px
+}
+
+.nl-body .nl-feature-item span[class^=lock] {
+	width: 58px;
+	height: 77px;
+	background-position: -210px -40px
+}
+
+@media (max-width:1200px) {
+	.header-mjmm {
+		height: 50px
+	}
+
+	.nl-body .offers_const {
+		display: block;
+		float: none !important;
+		width: 100%;
+		margin-top: 10px;
+		margin-bottom: 0;
+		text-align: left
+	}
+
+	.nl-body .offers_item .check-box {
+		top: 50%;
+		margin-top: -15px
+	}
+}
+
+.nl-body.gm h2 {
+	color: #ebaa21
+}
+
+.nl-body.mf ul {
+	margin-bottom: 0 !important
+}
+
+.nl-body.mf .offers_item {
+	padding: 25px 50px 25px 130px !important
+}
+
+.nl-body.jlm form {
+	color: #000 !important
+}
+
+.nl-body.mjmm form input,
+.nl-body.mt form input {
+	border: 1px solid #ccc !important
+}
+
+.container.nl-body.be {
+	text-align: left !important
+}
+
+#content.page-no-sidebar {
+	width: 100%
+}
+
+@media (max-width:992px) {
+
+	.header-mf,
+	.header-mt {
+		height: 50px
+	}
+
+	.footer-mf {
+		height: 1560px
+	}
+
+	.nl-body {
+		padding-top: 30px;
+		padding-bottom: 30px
+	}
+
+	.nl-body .nl-feature-item {
+		margin-bottom: 20px
+	}
+
+	.nl-body .nl-feature-item:nth-child(2n+1) {
+		clear: both
+	}
+}
+
+@media (max-width:768px) {
+	.header-am {
+		height: 42px
+	}
+
+	.header-vpf {
+		height: 60px
+	}
+
+	.header-gm {
+		height: 180px
+	}
+
+	.footer-am {
+		height: 1300px
+	}
+
+	.footer-vpf {
+		height: 1250px
+	}
+
+	.footer-gm {
+		height: 1160px
+	}
+
+	.footer-mt {
+		height: 1450px
+	}
+
+	.footer-jlm {
+		height: 920px
+	}
+
+	.footer-mjmm {
+		height: 1950px
+	}
+
+	.footer-be {
+		height: 2570px
+	}
+
+	.nl-body .page-title {
+		font-size: 20px
+	}
+
+	.nl-body .page-sub-title {
+		font-size: 14px
+	}
+
+	.nl-body .offers_item {
+		padding: 20px 20px 20px 70px;
+		font-size: 14px
+	}
+
+	.nl-body .offers_item .check-box {
+		left: 20px
+	}
+
+	.nl-body .offers_frequancy:before,
+	.nl-body .offers_time:before {
+		background-size: 250px
+	}
+
+	.nl-body .offers_time:before {
+		width: 19px;
+		height: 18px;
+		background-position: -22px 0
+	}
+
+	.nl-body .offers_frequancy:before {
+		width: 21px;
+		height: 21px;
+		background-position: 0 0
+	}
+
+	.nl-body .sign-form .page-title {
+		margin-bottom: 30px
+	}
+
+	.nl-body .nl-feature {
+		margin-top: 50px
+	}
+
+	.nl-body .nl-feature-item {
+		font-size: 12px
+	}
+
+	.nl-body .nl-feature-item span[class$="-icon"] {
+		background-size: 200px
+	}
+
+	.nl-body .nl-feature-item span[class^=book] {
+		width: 37px;
+		height: 47px;
+		background-position: 0 -24px
+	}
+
+	.nl-body .nl-feature-item span[class^=folder] {
+		width: 39px;
+		height: 47px;
+		background-position: -42px -24px
+	}
+
+	.nl-body .nl-feature-item span[class^=msg] {
+		width: 39px;
+		height: 47px;
+		background-position: -84px -24px
+	}
+
+	.nl-body .nl-feature-item span[class^=lock] {
+		width: 35px;
+		height: 47px;
+		background-position: -126px -24px
+	}
+}
+
+.nl-body .double_asterisk {
+	font-size: 14px;
+	vertical-align: top;
+}
+
+.nl-body.biba .offers_item.selected,
+.nl-body.biba .offers_item.selected .check-box,
+.nl-body.vpf .offers_item.selected,
+.nl-body.vpf .offers_item.selected .check-box {
+	border-color: #c93376;
+}
+
+.nl-body.gm .offers_item.selected .check-box:after {
+	background-position: -71px 0
+}
+
+.nl-body.biba .offers_item.selected .check-box:after,
+.nl-body.vpf .offers_item.selected .check-box:after {
+	background-position: -86px 0
+}
+
+.nl-body.gm .sign-form .btn-default,
+.nl-body.gm .sign-form [type=radio]:checked+label span:after {
+	background-color: #ebaa21
+}
+
+.nl-body.biba .sign-form .btn-default,
+.nl-body.biba .sign-form [type=radio]:checked+label span:after,
+.nl-body.vpf .sign-form .btn-default,
+.nl-body.vpf .sign-form [type=radio]:checked+label span:after {
+	background-color: #c93376;
+}
+
+.nl-body.vpf {
+	font-family: "Trebuchet MS", Lato, "Helvetica Neue", Helvetica, Arial, sans-serif, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body.vpf .offers_item,
+.nl-body.vpf .page-sub-title,
+.nl-body.vpf .page-title {
+	font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body.biba {
+	font-family: "Trebuchet MS", Suranna, "Helvetica Neue", Helvetica, Arial, sans-serif, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body.biba .offers_item,
+.nl-body.biba .page-sub-title,
+.nl-body.biba .page-title {
+	font-family: "Trebuchet MS", Suranna, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body.jlm {
+	font-family: "Trebuchet MS", Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body.jlm .offers_item,
+.nl-body.jlm .page-sub-title,
+.nl-body.jlm .page-title {
+	font-family: "Trebuchet MS", Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body.jlm .offers_item.selected,
+.nl-body.jlm .offers_item.selected .check-box {
+	border-color: #000
+}
+
+.nl-body.jlm .offers_item.selected .check-box:after {
+	background-position: -101px 0
+}
+
+.nl-body.jlm .sign-form .btn-default,
+.nl-body.jlm .sign-form [type=radio]:checked+label span:after {
+	background-color: #000
+}
+
+.nl-body.mt {
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body.mt .offers_item,
+.nl-body.mt .page-sub-title,
+.nl-body.mt .page-title {
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body.mt .offers_item.selected,
+.nl-body.mt .offers_item.selected .check-box {
+	border-color: #db2c34
+}
+
+.nl-body.mt .offers_item.selected .check-box:after {
+	background-position: -116px 0
+}
+
+.nl-body.mt .sign-form .btn-default,
+.nl-body.mt .sign-form [type=radio]:checked+label span:after {
+	background-color: #db2c34
+}
+
+.nl-body.mjmm {
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body.mjmm .offers_item,
+.nl-body.mjmm .page-sub-title,
+.nl-body.mjmm .page-title {
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body.mjmm .offers_item.selected,
+.nl-body.mjmm .offers_item.selected .check-box {
+	border-color: #82a545
+}
+
+.nl-body.mjmm .offers_item.selected .check-box:after {
+	background-position: -131px 0
+}
+
+.nl-body.mjmm .sign-form .btn-default,
+.nl-body.mjmm .sign-form [type=radio]:checked+label span:after {
+	background-color: #82a545
+}
+
+.nl-body.be {
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif, "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body.be .offers_item,
+.nl-body.be .page-sub-title,
+.nl-body.be .page-title {
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.nl-body .offers_item,
+.nl-body .page-sub-title,
+.nl-body .page-title {
+	font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: 400
+}
+
+.nl-body.be .offers_item.selected,
+.nl-body.be .offers_item.selected .check-box {
+	border-color: #000
+}
+
+.nl-body.be .offers_item.selected .check-box:after {
+	background-position: -101px 0
+}
+
+.nl-body.be .sign-form .btn-default,
+.nl-body.be .sign-form [type=radio]:checked+label span:after {
+	background-color: #000
+}
+
+.nl-body .page-title {
+	font-size: 30px;
+	text-transform: uppercase
+}
+
+.nl-body .page-sub-title {
+	margin-bottom: 40px;
+	font-size: 20px
+}
+
+.nl-body .form-control {
+	height: 40px;
+	padding: 0 20px;
+	border-color: #e4e4e4;
+	border-radius: 0
+}
+
+.nl-body .form-horizontal .form-group {
+	margin-right: 0;
+	margin-left: 0
+}
+
+.nl-body .birthday-group .combodate {
+	display: block;
+	width: 100%;
+	overflow: hidden
+}
+
+.nl-body .birthday-group select {
+	display: inline-block;
+	height: 40px;
+	padding: 0 20px;
+	margin-left: -5px;
+	border: 1px solid #e4e4e4;
+	background-color: #fff;
+	background-image: url(../img/arrow-bottom.png);
+	background-repeat: no-repeat;
+	background-position: calc(100% - 10px) center;
+	background-size: 14px;
+	-webkit-appearance: none !important;
+	-moz-appearance: none !important;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	border-radius: 0
+}
+
+.nl-body .birthday-group select:first-child {
+	margin-left: 0
+}
+
+.nl-body .birthday-group select.day,
+.nl-body .birthday-group select.month {
+	width: 25% !important;
+	border-right: 0
+}
+
+.nl-body .birthday-group select.year {
+	width: 50% !important
+}
+
+.nl-body .block {
+	display: block !important
+}
+
+.nl-body .offers_item {
+	position: relative;
+	padding: 40px 50px 40px 130px;
+	margin-bottom: 20px;
+	overflow: hidden;
+	font-size: 18px;
+	border: 2px solid #e5e5e5
+}
+
+.nl-body .offers_const,
+.nl-body .offers_item:last-child {
+	margin-bottom: 0
+}
+
+.nl-body .offers_item.selected {
+	border-color: #ef2e25
+}
+
+.nl-body .offers_item label {
+	position: relative;
+	font-weight: 400;
+	cursor: pointer
+}
+
+.nl-body .offers_item [type=checkbox] {
+	position: absolute;
+	left: -9999px
+}
+
+.nl-body .offers_item [type=checkbox]+label {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	width: 100%;
+	height: 100%
+}
+
+.nl-body .offers_item .check-box {
+	position: absolute;
+	left: 50px;
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	margin-right: 30px;
+	vertical-align: middle;
+	border: 2px solid #000
+}
+
+.nl-body .offers_item.selected .check-box {
+	border-color: #e11924
+}
+
+.nl-body .offers_item.selected .check-box:after {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 12px;
+	height: 9px;
+	margin-top: -4px;
+	margin-left: -6px;
+	content: "";
+	background-image: url(../img/nl_sprite.png);
+	background-repeat: no-repeat;
+	background-position: -56px 0
+}
+
+.nl-body .offers_frequancy,
+.nl-body .offers_time {
+	margin-right: 20px
+}
+
+.nl-body .offers_frequancy:last-child,
+.nl-body .offers_time:last-child {
+	margin-right: 0
+}
+
+.nl-body .offers_frequancy:before,
+.nl-body .offers_time:before {
+	display: inline-block;
+	margin-right: 10px;
+	content: "";
+	vertical-align: middle;
+	background-image: url(../img/nl_sprite.png);
+	background-repeat: no-repeat
+}
+
+.nl-body .offers_frequancy:before {
+	width: 27px;
+	height: 27px;
+	background-position: 0 0
+}
+
+.nl-body .offers_time:before {
+	width: 24px;
+	height: 24px;
+	background-position: -30px 0
+}
+
+.nl-body .sign-form {
+	margin: 50px auto 0
+}
+
+.nl-body .sign-form .page-title {
+	margin-bottom: 60px
+}
+
+.nl-body .sign-form label {
+	font-weight: 400;
+	text-transform: uppercase
+}
+
+.nl-body .sign-form .error {
+	margin-top: 5px;
+	color: #ef2e25
+}
+
+.nl-body .sign-form [type=radio] {
+	position: absolute;
+	left: -9999px
+}
+
+.nl-body .sign-form [type=radio]+label span {
+	position: relative;
+	display: inline-block;
+	width: 21px;
+	height: 21px;
+	margin-right: 20px;
+	vertical-align: middle;
+	border: 1px solid #dfdfdf;
+	border-radius: 100px
+}
+
+.nl-body .sign-form [type=radio]:checked+label span:after {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 11px;
+	height: 11px;
+	margin-top: -6px;
+	margin-left: -6px;
+	content: "";
+	border-radius: 100px;
+	background-color: #ef2e25
+}
+
+.nl-body .sign-form .radio-inline {
+	padding: 0;
+	margin-right: 20px;
+	margin-bottom: 20px
+}
+
+.nl-body .sign-form .form-group {
+	margin-bottom: 30px
+}
+
+.nl-body .sign-form input[type=text] {
+	text-transform: lowercase
+}
+
+.nl-body .sign-form input[type=text]::-webkit-input-placeholder {
+	text-transform: uppercase;
+	color: #dcdcdc
+}
+
+.nl-body .sign-form input[type=text]::-moz-placeholder {
+	text-transform: uppercase;
+	color: #dcdcdc
+}
+
+.nl-body .sign-form input[type=text]:-ms-input-placeholder {
+	text-transform: uppercase;
+	color: #dcdcdc
+}
+
+.nl-body .sign-form input[type=text]:-moz-placeholder {
+	text-transform: uppercase;
+	color: #dcdcdc
+}
+
+.nl-body .sign-form .btn-default {
+	padding: 10px 20px;
+	font-size: 20px;
+	text-transform: uppercase;
+	border: 0;
+	background-color: #ef2e25
+}
+
+.nl-body .sign-form .help-block {
+	margin-top: 10px;
+	font-size: 12px;
+	text-transform: uppercase;
+	color: #000
+}
+
+.nl-body .nl-feature {
+	margin-top: 100px
+}
+
+.nl-body .nl-feature .page-title {
+	margin-bottom: 50px
+}
+
+.nl-body .nl-feature-item {
+	font-size: 18px;
+	text-align: center
+}
+
+.nl-body .nl-feature-item span[class$="-icon"] {
+	display: block;
+	margin: 0 auto 20px;
+	background-image: url(../img/nl_sprite.png);
+	background-repeat: no-repeat
+}
+
+.nl-body .nl-feature-item span[class^=book] {
+	width: 61px;
+	height: 77px;
+	background-position: 0 -40px
+}
+
+.nl-body .nl-feature-item span[class^=folder] {
+	width: 64px;
+	height: 77px;
+	background-position: -70px -40px
+}
+
+.nl-body .nl-feature-item span[class^=msg] {
+	width: 64px;
+	height: 77px;
+	background-position: -140px -40px
+}
+
+.nl-body .nl-feature-item span[class^=lock] {
+	width: 58px;
+	height: 77px;
+	background-position: -210px -40px
+}
+
+@media (max-width:1200px) {
+	.header-mjmm {
+		height: 50px
+	}
+
+	.nl-body .offers_const {
+		display: block;
+		float: none !important;
+		width: 100%;
+		margin-top: 10px;
+		margin-bottom: 0;
+		text-align: left
+	}
+
+	.nl-body .offers_item .check-box {
+		top: 50%;
+		margin-top: -15px
+	}
+}
+
+.nl-body.gm h2 {
+	color: #ebaa21
+}
+
+.nl-body.biba ul {
+	margin-bottom: 0 !important
+}
+
+.nl-body.biba .offers_item {
+	padding: 25px 50px 25px 130px !important
+}
+
+.nl-body.jlm form {
+	color: #000 !important
+}
+
+.nl-body.mjmm form input,
+.nl-body.mt form input {
+	border: 1px solid #ccc !important
+}
+
+.container.nl-body.be {
+	text-align: left !important
+}
+
+#content.page-no-sidebar {
+	width: 100%
+}
+
+@media (max-width:992px) {
+
+	.header-mf,
+	.header-mt {
+		height: 50px
+	}
+
+	.footer-mf {
+		height: 1560px
+	}
+
+	.nl-body {
+		padding-top: 30px;
+		padding-bottom: 30px
+	}
+
+	.nl-body .nl-feature-item {
+		margin-bottom: 20px
+	}
+
+	.nl-body .nl-feature-item:nth-child(2n+1) {
+		clear: both
+	}
+}
+
+@media (max-width:768px) {
+	.header-am {
+		height: 42px
+	}
+
+	.header-vpf {
+		height: 60px
+	}
+
+	.header-gm {
+		height: 180px
+	}
+
+	.footer-am {
+		height: 1300px
+	}
+
+	.footer-vpf {
+		height: 1250px
+	}
+
+	.footer-gm {
+		height: 1160px
+	}
+
+	.footer-mt {
+		height: 1450px
+	}
+
+	.footer-jlm {
+		height: 920px
+	}
+
+	.footer-mjmm {
+		height: 1950px
+	}
+
+	.footer-be {
+		height: 2570px
+	}
+
+	.nl-body .page-title {
+		font-size: 20px
+	}
+
+	.nl-body .page-sub-title {
+		font-size: 14px
+	}
+
+	.nl-body .offers_item {
+		padding: 20px 20px 20px 70px;
+		font-size: 14px
+	}
+
+	.nl-body .offers_item .check-box {
+		left: 20px
+	}
+
+	.nl-body .offers_frequancy:before,
+	.nl-body .offers_time:before {
+		background-size: 250px
+	}
+
+	.nl-body .offers_time:before {
+		width: 19px;
+		height: 18px;
+		background-position: -22px 0
+	}
+
+	.nl-body .offers_frequancy:before {
+		width: 21px;
+		height: 21px;
+		background-position: 0 0
+	}
+
+	.nl-body .sign-form .page-title {
+		margin-bottom: 30px
+	}
+
+	.nl-body .nl-feature {
+		margin-top: 50px
+	}
+
+	.nl-body .nl-feature-item {
+		font-size: 12px
+	}
+
+	.nl-body .nl-feature-item span[class$="-icon"] {
+		background-size: 200px
+	}
+
+	.nl-body .nl-feature-item span[class^=book] {
+		width: 37px;
+		height: 47px;
+		background-position: 0 -24px
+	}
+
+	.nl-body .nl-feature-item span[class^=folder] {
+		width: 39px;
+		height: 47px;
+		background-position: -42px -24px
+	}
+
+	.nl-body .nl-feature-item span[class^=msg] {
+		width: 39px;
+		height: 47px;
+		background-position: -84px -24px
+	}
+
+	.nl-body .nl-feature-item span[class^=lock] {
+		width: 35px;
+		height: 47px;
+		background-position: -126px -24px
+	}
+}
+
+.nl-body .double_asterisk {
+	font-size: 14px;
+	vertical-align: top;
+}
+
+.page #content .nl-body.biba h3 {
+	color: #c93376 !important;
+	font-family: TrebuchetMS;
+	font-weight: bold;
+	font-size: 32px;
+}
+
+.page #content .nl-body.biba #sub-title-page {
+	color: #c93376 !important;
+	font-family: TrebuchetMS;
+	font-size: 22px;
+}
+
+.page #content .nl-body.biba strong {
+	font-family: TrebuchetMS;
+}
+
+.page #content .nl-body.biba .optin-new-beaute {
+	font-size: 18px;
+	line-height: 24px;
+	color: #000000;
+	font-family: "Trebuchet MS";
+}
+
+.page #content .nl-body.biba .optin-partner {
+	font-size: 18px;
+	line-height: 24px;
+	color: #000000;
+	font-family: "Trebuchet MS";
+}
+
+.page #content .nl-body.biba page-title {
+	font-size: 50px;
+}
+
+body.page #content .form-horizontal select option,
+body.page #content .form-horizontal select option:hover {
+	color: #000;
+	margin: 0;
+}
+
+.nl-body.f1i .page-sub-title,
+.nl-body.f1i .page-title {
+	font-family: montserrat-semibold, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.nl-body.f1i .offers_item.selected,
+.nl-body.f1i .offers_item.selected .check-box {
+	border-color: #1d1d1b;
+}
+
+.nl-body.f1i .offers_item.selected .check-box:after {
+	background-position: -101px 0;
+}
+
+.nl-body.f1i .sign-form .btn-default,
+.nl-body.f1i .sign-form [type=radio]:checked+label span:after {
+	background-color: #1d1d1b;
+}
+
+
+body.page-name-inscription-newsletter #content .nl-body.dubai p:first-child {
+	letter-spacing: 0;
+	font-size: 20px;
+}
+
+body.page-name-inscription-newsletter .nl-body.dubai {
+	padding-top: 0;
+}
+
+body.page-name-inscription-newsletter .nl-body.dubai form {
+	margin-top: 30px;
+}
+
+body.page #content .nl-body.dubai .page-sub-title,
+body.page #content .nl-body.dubai .page-title {
+	font-family: "abrilfatface-regular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	text-transform: capitalize;
+	font-size: 32px;
+}
+
+.nl-body.dubai .offers_item {
+	margin-bottom: 30px;
+}
+
+.nl-body.dubai .offers_item.selected,
+.nl-body.dubai .offers_item.selected .check-box {
+	border-color: #f51a77;
+}
+
+.nl-body.dubai .offers_item.selected .check-box:after {
+	background-position: -86px 0;
+}
+
+.nl-body.dubai .sign-form .btn-default,
+.nl-body.dubai .sign-form [type=radio]:checked+label span:after {
+	background-color: #000;
+}
+
+body.page #content .nl-body.dubai h3 {
+	color: #000;
+}
+
+body.page #content .nl-body.dubai p.help-block {
+	font-size: 12px;
+	margin-bottom: 0;
+}
+
+body.page #content .nl-body.dubai p.help-block:last-child {
+	margin-top: 0;
+}
+
+body.page #content .nl-body.dubai .help-block a {
+	color: #000;
+	text-decoration: underline;
+}
+
+body.page #content .nl-body.dubai #confirmation-old .page-title,
+body.page #content .nl-body.dubai #confirmation-old .page-sub-title,
+body.page #content .nl-body.dubai #confirmation-new .page-title,
+body.page #content .nl-body.dubai #confirmation-new .page-sub-title {
+	font-family: "Montserrat-Regular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body.page.rtl #content .nl-body.dubai #confirmation-old .page-title,
+body.page #content .nl-body.dubai #confirmation-old .page-sub-title,
+body.page.rtl #content .nl-body.dubai #confirmation-new .page-title,
+body.page #content .nl-body.dubai #confirmation-new .page-sub-title {
+	font-family: "Montserrat-Arabic-Regular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.nl-body.dubai select.form-control {
+	background-image: url(../img/arrow_pink.png);
+}
+
+.nl-body.dubai .offers_item.travel.selected,
+.nl-body.dubai .offers_item.travel.selected .check-box {
+	border-color: #74bfc6;
+}
+
+.nl-body.dubai .offers_item.travel.selected .check-box:after {
+	background-position: -146px 0;
+}
+
+.nl-body.dubai .offers_item.fashion.selected,
+.nl-body.dubai .offers_item.fashion.selected .check-box {
+	border-color: #8b1e78;
+}
+
+.nl-body.dubai .offers_item.fashion.selected .check-box:after {
+	background-position: -161px 0;
+}
+
+.nl-body.dubai .offers_item.entrainement.selected,
+.nl-body.dubai .offers_item.entrainement.selected .check-box {
+	border-color: #d79239;
+}
+
+.nl-body.dubai .offers_item.entrainement.selected .check-box:after {
+	background-position: -176px 0;
+}
+
+.nl-body.dubai .offers_item.foodie.selected,
+.nl-body.dubai .offers_item.foodie.selected .check-box {
+	border-color: #f2e34a;
+}
+
+.nl-body.dubai .offers_item.foodie.selected .check-box:after {
+	background-position: -190px 0;
+}
+
+.nl-body.dubai .offers_item.lifestyle.selected,
+.nl-body.dubai .offers_item.lifestyle.selected .check-box {
+	border-color: #201b8b;
+}
+
+.nl-body.dubai .offers_item.lifestyle.selected .check-box:after {
+	background-position: -204px 0;
+}
+
+
+
+
+body.rtl .nl-body.dubai .offers_item,
+body.rtl .nl-body.dubai .offers_item * {
+	direction: ltr;
+}
+
+body.rtl .nl-body.dubai .radio_btn,
+body.rtl .nl-body.dubai .radio_btn * {
+	direction: ltr;
+}
+
+body.rtl .nl-body.dubai .nl-feature-item {
+	font-family: "Montserrat-Arabic-Regular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+html:lang(ar) {
+	direction: ltr;
+}
+
+body.rtl.page #content .form-horizontal select {
+	background-position: left;
+}
+
+body.rtl.page .nl-body .sign-form .radio-inline {
+	margin-bottom: 0;
+}
+
+body.rtl.page .nl-body .sign-form [type=radio]+label span {
+	margin-left: 20px;
+}
+
+
+
+
+
+@media (min-width: 768px) {
+	.nl-body.be {
+		width: 750px;
+	}
+}
+
+@media (min-width: 992px) {
+	.nl-body.be {
+		width: 970px;
+	}
+}
+
+@media (min-width: 1200px) {
+	.nl-body.be {
+		width: 1110px;
+	}
+}

@@ -1,0 +1,52 @@
+.filter{
+	// .filters
+	&s{
+		margin-bottom: 20px;
+		.checkbox {
+			position: relative;
+			display: block;
+			label{
+				display: block;
+				cursor: pointer;
+				padding-left: 30px;
+				color: #1f1f1f;
+				@include commuters-sans-semibold;
+				text-transform: uppercase;
+				line-height: 1.5;
+				&:before{
+					content: "";
+					display: block;
+					width: 20px;
+					height: 20px;
+					position: absolute;
+					top: 0;
+					left: 0;
+					background-color: #fff;
+					border: 1px solid #ddd;
+				}
+			}
+			input[type="checkbox"]{
+				width: 0;
+				height: 0;
+				position: absolute;
+				overflow: hidden;
+				display: none;
+				&:checked + label:before{
+					background-image: url('../images-v3/checkmark.png');
+					background-repeat: no-repeat;
+					background-position: center;
+					background-size: 10px;
+					background-color: #eee;
+					border: none;
+				}
+			}
+		}
+	}
+	// .filter-item
+	&-item{
+		display: inline-block;
+		&:not(:last-child){
+			margin-right: 30px;
+		}
+	}
+}

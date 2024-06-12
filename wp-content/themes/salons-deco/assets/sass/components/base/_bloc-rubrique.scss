@@ -1,0 +1,52 @@
+// .bloc_rubrique{
+	.post{
+		margin-top: 10px;
+		margin-bottom: 20px;
+		&.col-sm-6{
+			&:nth-child(2n+1){
+				clear: both;
+			}
+		}
+		// .post_img
+		&_img {
+			position: relative;
+			img{
+				width: 100%;
+				max-height: 175px;
+				&.lazy-loaded{
+					max-height: none;
+				}
+			}
+		}
+		.info_cat{
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			@include translate(-50%, 0);
+		}
+		// .post_caption
+		&_caption {
+			text-align: center;
+		}
+		// .post_title
+		&_title {
+			margin-top: 15px;
+			margin-bottom: 0;
+			&, a{
+				font-family: $main-font-bold;
+				font-size: 20px;
+				color: $main_color;
+				line-height: 1em;
+				&:hover{
+					color: $main-color;
+				}
+			}
+		}
+		// .post_excerpt
+		&_excerpt {
+			margin-top: 5px;
+			font-family: $main-font;
+			font-size: 12px;
+		}
+	}
+// }

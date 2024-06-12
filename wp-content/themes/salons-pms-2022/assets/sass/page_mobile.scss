@@ -1,0 +1,214 @@
+@charset "UTF-8";
+@import "compass/css3";
+
+// @import "../../../core/assets/bootstrap-sass/sass/fonts";
+
+@import "../../../core/assets/bootstrap-sass/sass/variables";
+@import "utils/variables";
+
+
+.page{
+	
+	&-title {
+		text-transform: uppercase;
+		text-align: center;
+		font-size: 52px;
+		@include  commuters-sans-extrabold;
+	}
+	&-content{// .page-content
+		@import "components/base/list-exposant";
+		padding : 50px 0;
+		p{
+			margin-bottom: 25px;
+			font-size: 18px;
+			@include  commuters-sans-regular;
+			.aligncenter {
+				position: relative;
+				transform: translateX(-50%);
+				left: 50%;
+			}
+			
+		}
+		.logos-wrapper {
+			display: flex;
+			justify-content: space-around;
+		}
+		iframe {
+			margin-top: 20px;
+		}
+		h3 {
+			@include  commuters-sans-extrabold;
+			font-size: 18px;
+			text-transform: uppercase;
+			margin: 25px 0;
+		}
+		a {
+			text-decoration: underline;
+			text-decoration-color: black;
+		}
+	}
+	hr{
+		border-top: 1px solid #707070;
+	}
+	&-btn {
+		@include pms-btn(16px,20px 70px 20px 60px);
+		margin-top: 26px;
+		text-decoration: none !important;
+	}
+	&-adr {
+		width: 50%;
+		font-size: 18px;
+		margin-bottom: 25px;
+	}
+	&-event {
+		display: flex;
+    	justify-content: space-between;
+		
+		&-horaire {
+			padding-right: 8px;
+			@include commuters-sans-bold;
+			font-size: 18px;
+		}
+		&-date {
+			@include commuters-sans-bold;
+			font-size: 18px;
+			
+		}
+	}
+	&-transcom {
+		
+		&-title{
+			span {
+				color: $pms_green_color;
+			}
+		}
+		&-infos {
+			@include commuters-sans-regular;
+			font-size: 18px;
+		}
+		&-type {
+			@include commuters-sans-bold;
+			font-size: 18px;
+			padding: 0;
+		}
+		&-bloc {
+			padding: 15px 0;
+			margin: 0;
+		}
+		
+	}
+	&-park {
+		&-title {
+			span {
+				color: $pms_cyan_color;
+			}
+		}
+		&-infos {
+			@include commuters-sans-regular;
+			font-size: 18px;
+		}
+		&-name {
+			@include commuters-sans-bold;
+			font-size: 18px;
+			padding: 0;
+		}
+		&-bloc {
+			padding: 15px 0;
+			margin: 0;
+		}
+	}
+	&-air {
+		&-title {
+			margin-bottom: 15px;
+			span {
+				color: $pms_purple_color;
+			}
+		}
+		&-infos {
+			@include commuters-sans-regular;
+			font-size: 18px;
+			margin-bottom: 25px;
+		}
+		&-name {
+			@include commuters-sans-bold;
+			font-size: 18px;
+			padding: 10px 0;
+		}
+	}
+	.site-content{
+		.contact-press{
+			.nf-form-cont{
+				.nf-form-title{
+					h3{
+						@include commuters-sans-extrabold;
+						font-size: 28px;
+						text-transform: uppercase;
+						margin-bottom: 45px;
+					}
+				}
+				#ninja_forms_required_items, .nf-field-container{
+					margin-bottom: 10px;
+				}
+				.nf-field-label {
+					text-align: left;
+				}
+			}
+			
+		}
+	}
+	.site-content .contact-press .nf-form-content {
+
+		.nf-field-label label{
+			@include commuters-sans-bold;
+			font-size: 18px;
+			margin-bottom: 10px;
+		}
+
+		input[type=text], input[type=tel], input[type=email], textarea, select {
+			@include commuters-sans-regular;
+			font-size: 16px;
+			border: 1px solid black;
+			border-radius: 5px;
+		}
+		input[type=text]:focus, input[type=tel]:focus, input[type=email]:focus, textarea:focus, select:focus {
+			color: black;
+		}
+		input[type=button], input[type=submit] {
+			background: none;
+			border: 1px solid black;
+			color: black;
+			font-size: 16px;
+			padding: auto;
+			border-radius: 90px;
+			width: auto;
+		}
+		.submit-wrap {
+			margin-top: 20px;
+			text-align: center;
+		}
+	}
+	
+}
+
+@media screen and (max-width: $screen-sm-min) {
+	.page{
+		&-title {
+			font-size: 28px;
+		}
+		&-content p, &-event-horaire,&-event-date, &-park-infos,
+		&-air-infos, &-adr,&-transcom-infos {
+			font-size: 16px;
+		}
+		&-btn {
+			margin-top: 20px;
+			font-size: 12px;
+			padding: 10px 45px 10px 30px;
+			&::after {
+				font-size: 12px;
+				right: 30px;
+			}
+		}		
+	}
+}
+
+@import "components/base/_page-billetterie.scss";

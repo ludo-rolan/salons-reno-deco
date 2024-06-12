@@ -1,0 +1,25 @@
+@import "single";
+@import "components/base/post_diapo";
+//Tablet
+@media (min-width: $screen-sm-min){
+	@import "components/desktop/bloc_rubrique_tablet";
+	.block_diapo {
+		.btn-navs {
+			width: 50px;
+			height: 50px;
+			@include background-size(auto);
+		}
+		._left {
+			left: 20px;
+		}
+		._right {
+			right: 20px;
+		}
+	}
+}
+
+//Desktop
+// @media (min-width: $screen-md-min){}
+
+//Large Screens
+// @media (min-width: $screen-lg-min){}

@@ -1,0 +1,91 @@
+diff --git a/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs.vast.js b/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs.vast.js
+index 429847e..3d85c54 100644
+--- a/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs.vast.js
++++ b/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs.vast.js
+@@ -72,6 +72,9 @@
+       getContent: function () {
+ 
+         // query vast url given in settings
++        
++        player.trigger('call_cdn_ads');
++
+         vast.client.get(settings.url, function(response) {
+           if (response) {
+             // we got a response, deal with it
+
+
+diff --git a/wp-content/themes/reworldmedia/assets/videojs-plugins/youtube.js b/wp-content/themes/reworldmedia/assets/videojs-plugins/youtube.js
+index 1cd8dfa..7bfd764 100644
+--- a/wp-content/themes/reworldmedia/assets/videojs-plugins/youtube.js
++++ b/wp-content/themes/reworldmedia/assets/videojs-plugins/youtube.js
+@@ -100,10 +100,19 @@
+         frameBorder: 0
+       });
+ 
++      this.safe_ = videojs.Component.prototype.createEl('video', {
++        id: this.player_.id() + "_html5_api"  ,
++        className: 'vjs-tech yt',
++        style : 'display:none'
++
++      });
++
+       this.el_.setAttribute('allowFullScreen', '');
+ 
++      this.playerEl_.insertBefore(this.safe_, this.playerEl_.firstChild );
+       this.playerEl_.insertBefore(this.el_, this.playerEl_.firstChild);
+ 
++
+       if(/MSIE (\d+\.\d+);/.test(navigator.userAgent)) {
+         var ieVersion = Number(RegExp.$1);
+         this.addIframeBlocker(ieVersion);
+
+diff --git a/wp-content/themes/reworldmedia/assets/videojs-plugins/youtube.js b/wp-content/themes/reworldmedia/assets/videojs-plugins/youtube.js
+index 7bfd764..6867686 100644
+--- a/wp-content/themes/reworldmedia/assets/videojs-plugins/youtube.js
++++ b/wp-content/themes/reworldmedia/assets/videojs-plugins/youtube.js
+@@ -107,9 +107,15 @@
+ 
+       });
+ 
++      this.style_ = videojs.Component.prototype.createEl('style'),
++      this.style_.innerHTML = "video.vjs-tech.yt{\
++			display: none;\
++		}";
++
+       this.el_.setAttribute('allowFullScreen', '');
+ 
+       this.playerEl_.insertBefore(this.safe_, this.playerEl_.firstChild );
++      this.playerEl_.insertBefore(this.style_, this.playerEl_.firstChild);
+       this.playerEl_.insertBefore(this.el_, this.playerEl_.firstChild);
+ 
+diff --git a/wp-content/themes/reworldmedia/assets/videojs-plugins/youtube.js b/wp-content/themes/reworldmedia/assets/videojs-plugins/youtube.js
+index 09d6aa5..5b41a03 100644
+--- a/wp-content/themes/reworldmedia/assets/videojs-plugins/youtube.js
++++ b/wp-content/themes/reworldmedia/assets/videojs-plugins/youtube.js
+@@ -862,7 +862,9 @@
+ 
+           this.playVideoIsAllowed = true;
+           this.updateQualities();
+-          this.updateCaptions();
++          try{
++          	this.updateCaptions();
++          }catch(e){}
+           this.player_.trigger('timeupdate');
+           this.player_.trigger('durationchange');
+           this.player_.trigger('playing');
+
+
+--- a/wp-content/themes/reworldmedia/assets/videojs-plugins/youtube.js
++++ b/wp-content/themes/reworldmedia/assets/videojs-plugins/youtube.js
+@@ -462,7 +462,7 @@
+           this.ytplayer.mute();
+         }
+ 
+-        if(this.playVideoIsAllowed) {
++       // if(this.playVideoIsAllowed  ) {
+           this.ytplayer.playVideo();
+-       }
++       //  }
+       } else {
+
+

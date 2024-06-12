@@ -1,0 +1,18 @@
+// Mobile
+@import "home_mobile";
+
+//Tablet
+@media (min-width: $screen-sm-min){
+	@import "components/desktop/bloc_rubrique_tablet";
+	@import "components/desktop/text-bloc_tablet";
+}
+
+//Desktop
+@media (min-width: $screen-md-min){
+	@import "components/desktop/header_visuel_content_desktop";
+}
+
+//Large Screens
+@media (min-width: $screen-lg-min){
+
+}

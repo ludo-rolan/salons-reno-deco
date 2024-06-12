@@ -1,0 +1,237 @@
+footer{
+	position: relative;
+	font-family: $main_font;
+	font-size: 14px;
+	padding: 20px 20px 0 20px;
+	background-color: #000;
+	color: #fff;
+
+	.widget{
+		//.widget-title
+		&-title{
+			@include commuters-sans-bold;
+			font-size: 32px;
+			margin-bottom: 5px;
+			text-transform: uppercase;
+		}
+		//.widget_text
+		&_text{
+			text-align: center;
+			padding: 20px 50px;
+			font-size: 16px;
+		}
+	}
+	.reseaux-sociaux{
+		margin-bottom: 0;
+		margin-top: 20px;
+		li{
+			display: inline-block;
+			padding: 0;
+			margin-left: -1px;
+		}
+		//.reseaux-sociaux-btn
+		&-btn{
+			display: inline-block;
+			width: 45px;
+			height: 45px;
+			border: 1px solid #fff;
+			background-repeat: no-repeat;
+			background-position: center;
+			overflow: hidden;
+			text-indent: -999px;
+			&.twitter{
+				background-image: url("../images-v3/twitter-icon.png");
+			}
+			&.facebook{
+				background-image: url("../images-v3/fb-icon.png");
+			}
+			&.instagram{
+				background-image: url("../images-v3/instagram-icon.png");
+			}
+			&.linkedin{
+				background-image: url("../images-v3/linkedin-icon-white.png");
+			}
+		}
+	}
+	.widget_newsletter{
+		.nf-form-content .nf-field-element input[type='button'],
+		input[type='submit']{
+			border: 1px solid #ffffff;
+			background-color: #000000;
+		}
+		.nf-form-content .nf-field-element input[type='email'],
+		input[type='email']{
+			border-color: #ffffff;
+			background-color: #ffffff;
+		}
+	}
+}
+
+.footer{
+	//.footer-widget
+	&-widget{
+		float: none;
+	}
+	//.footer-logo
+	&-logo{
+		display: block;
+		max-width: 132px;
+    	margin: auto;
+	}
+
+	//.footer-subscribe
+	&-subscribe{
+		.btn{
+			margin-top: 20px;
+		}
+	}
+}
+
+.menu-footer{
+	text-align: center;
+	width: auto;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin-bottom: 30px;
+	margin-left: 0;
+	>li{
+		padding: 0 5px;
+		a{
+			font-size: 14px;
+			color: #ffffff;
+			@include commuters-sans-bold;
+			text-transform: uppercase;
+		}
+	}
+	&-img {
+		text-align: right;
+		img{
+			width: 200px;
+			height: auto;
+		}
+	}
+}
+#menu-footer_bottom{
+	display: flex;
+    flex-wrap: wrap;
+	align-items: center;
+	text-align: center;
+	margin-bottom: 110px;
+	margin-top: -80px;
+	a {
+		@include commuters-sans-regular;
+		text-align: center;
+		color: #fff;
+		text-transform: uppercase;
+		font-size: 15px;
+	}
+}
+.nl_footer {
+	&_container {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		text-align: center;
+		margin-bottom: 50px;
+	}
+	&_wrapper {
+		text-align: center;
+		@include commuters-sans-regular;
+	}
+	&_title {
+		@include commuters-sans-semibold;
+		padding-bottom: 16px;
+		font-size: 18px;
+	}
+	&_text {
+		margin-bottom: 18px;
+		font-size: 14px;
+		a{
+			color: #fff;
+			text-decoration: underline;
+		}
+	}
+	&_form {
+		position: relative;
+		margin: 0 auto;
+		padding: 0;
+		height: 40px;
+		max-width: 500px;
+		border-radius: 90px;
+		overflow: hidden;
+		background: #fff;
+		input{
+			@include commuters-sans-regular;
+			height:100%;
+			position: absolute;
+			border: none;
+			background:none;
+			padding: 0;
+			top: 0;
+			color: #000;
+		}
+		input[type="email"] {
+			padding-left: 20px;
+			left: 0;
+			width: 70%;
+			&:focus {
+				outline: none !important;
+			}
+		}
+		
+		input[type="submit"] {
+			@include commuters-sans-extrabold;
+			right: 0;
+			font-size: 15px;
+			text-transform: uppercase;
+			padding-right: 15px;
+			padding-left: 15px;
+			&:hover {
+				background-color: $pms_green_color;
+				border-radius: 30px;
+			}
+			
+		}
+	}
+}
+
+@media screen and (max-width: $screen-md-min) {
+	.nl_footer{
+		&_container{
+			.menu-footer-img{
+				margin-top: 40px;
+				text-align: center;
+			}
+		}
+	}
+	#menu-footer_bottom{
+		margin-top: 10px;
+		margin-bottom: 40px;
+		a {
+			padding: 4px 0;
+			font-size: 12px;
+		}
+	}
+}
+@media screen and (max-width: $screen-xs-min) {
+	.nl_footer {
+		&_form {
+			input[type="email"] {
+				width: 60%;
+			}
+		}
+	}
+}
+
+.page-template-page-no-sidebar{
+	footer{
+		#menu-footer_bottom{
+			margin-top: 0;
+		}
+		@media screen and (min-width: $screen-md-max) {
+			.footer-logo{
+				margin-bottom: -90px;
+			}
+		}
+	}
+}

@@ -1,0 +1,247 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+</script> 
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<!-- <script type="text/javascript" src="automoto.rw.loc.env/wp-content/themes/reworldmedia/assets/javascripts/nl_crm_box.js"></script> -->
+<script type="text/javascript">
+	$ = jQuery;
+	$(document).ready(function(){
+	    var $btn_accept = $("#footer_accept_newsletter");
+	    var cookieValue_nl = $.cookie("nl_cookie_footer", { path: "/" });
+	    if (!cookieValue_nl) {
+	        $btn_accept.removeClass("hidden");
+	    }
+
+	    $('#close_bar').on('click', function(){
+	        $btn_accept.remove();
+	    });
+
+	    $("#form_be_box").submit(function(event) {
+
+	        $.cookie( "nl_cookie_crmbox", 1, { expires: 365, path: "/" } );
+	        var email = $('#MAIL').val();
+	        var checked = $('#OPTIN_PART_CHECK').is(':checked') ;
+	        $.ajax({
+	            url : '/',
+	            type : 'POST',
+	            dataType: 'json',
+	            data : {
+	                action              : 'update_user_chetaah_ajax',
+	                src_nl              : 'inread',
+	                fields : {
+	                    email               : email,
+	                    checked 			: checked,
+	                }
+	            },
+	            success : function( response ) {
+	            	var welcome_msg = "";
+	                //$('#form_be_box').remove();
+	                 if(response === 'NEW_USER'){
+	                	welcome_msg='<h1>Vous venez de recevoir un mail de confirmation !</h1><h2>N&apos;hésitez pas à  consulter votre courrier indésirable</h2><button class="button" type="submit" disabled >Merci !</button><br class="clearfix"/>';
+	                }else if(response === 'UPDATE_USER'){
+	                 	welcome_msg='<h1>Bienvenue !</h1><button class="button" type="submit" disabled >Merci</button><br class="clearfix"/>';
+	                }else{
+	                	welcome_msg='<h1>Service indisponible pour le moment !</h1><button class="button" type="submit" disabled >Merci</button><br class="clearfix"/>';
+	                }
+	                $('#form_be_box').html(welcome_msg);
+	                return false;
+	            },
+	        });
+	        return false;
+	    });
+
+	});
+
+</script>
+<script>
+jQuery(document).ready(function(){
+
+    var sendMessage = function (msg) {
+        window.parent.postMessage(msg, '*');
+    };
+
+    $( "form" ).submit(function( event ) {
+        sendMessage('sub_nl_cookie');
+    });
+
+    $( "#close_bar" ).click(function() {
+        sendMessage('close_sticky_footer');
+	});
+
+    $("#footer_accept_newsletter #MAIL").focus(function(){
+    	sendMessage('focus_input_nl_footer');
+    });
+
+});</script>
+
+<!-- style -->
+
+<style type="text/css">
+
+
+	@import url('https://fonts.googleapis.com/css?family=Playfair+Display:700');
+
+
+	@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+
+
+	body{
+	    background-image:  url("//sf.viepratique.fr/wp-content/uploads/sites/8/2018/07/mtra_desk.jpg");
+	    background-repeat: no-repeat;
+	    background-size: cover;
+	    color: white;
+	    margin: 0;
+	}
+	form{
+		margin: 26px 20px ;
+	}
+
+	h1 {
+	    font-family: 'Playfair+Display:700';
+	    font-size: 25px;
+	    font-weight: 100;
+		margin: 0 0 5px 0; 
+	}
+	h2 {
+		font-family: 'OpenSans';
+		font-size: 20px;
+		margin: 0 0 12px 0;
+		font-weight: normal;
+	}
+	#MAIL{
+        width: 320px;
+    	height: 44px;
+	    padding: 0 0 0 20px;
+	    border: 0;
+	    line-height: 44px; 
+		float: left;
+	}
+
+
+	::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+		color: #dcdcdc ;
+	    font-family: 'OpenSans';
+	    font-size: 14px ;
+	    text-transform: uppercase;
+	}
+	:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+		color: #dcdcdc ;
+	    font-family: 'OpenSans';
+	    font-size: 14px ;
+	    text-transform: uppercase;
+	}
+	::-moz-placeholder { /* Mozilla Firefox 19+ */
+		color: #dcdcdc ;
+	    font-family: 'OpenSans';
+	    font-size: 14px ;
+	    text-transform: uppercase;
+	}
+	:-ms-input-placeholder { /* Internet Explorer 10-11 */
+		color: #dcdcdc ;
+	    font-family: 'OpenSans';
+	    font-size: 14px ;
+	    text-transform: uppercase;
+	}
+
+
+	.button{
+		width: 180px;
+		height: 44px;
+		background-color: #db2c34;
+		color: #fff;
+		border: 0;
+		font-size: 16px;
+		font-family: 'OpenSans';
+		font-weight: 600;
+		text-transform: uppercase;
+		line-height: 44px;
+		float: left; 
+		margin-bottom: 5px;
+	}
+	.clearfix{
+		clear: both;
+	}
+
+
+	.close {
+	    display: inline-block;
+	    color: #fff;
+	    font-size: 37px;
+	    font-weight: 100;
+	    margin-bottom: -30px;
+	    cursor: pointer;
+	    background: transparent;
+	    border: 0;
+	    -webkit-appearance: none;
+	    float: right;
+	    text-shadow: 0 1px 0 #fff;
+	    position: absolute;
+	    right: 0;
+	    top: 0;
+	}
+	
+	#inscrit {
+		font-family: 'Playfair+Display';
+	}
+
+
+@media only screen and (max-width : 550px) {
+	form {
+		    text-align: center;
+	}
+
+	h1{
+	    margin: 0 auto;
+	    text-align: center;
+	    width: 70%;
+	    padding-top: 30px;
+	}
+	h2{
+	    text-align: center;
+	    width: 80%;
+	    margin: 0 auto;
+	    padding-bottom: 20px;
+	}
+	body{
+	    background-image:  url("//sf.viepratique.fr/wp-content/uploads/sites/8/2018/07/mtra_mob.jpg");
+	}
+	#MAIL{
+		margin-top: 32px;
+	}
+
+	#MAIL, .button {
+	    width: 90%;
+	    margin: 0 auto;
+	    display: block;
+	    float: none;
+	    -webkit-box-sizing: border-box; 
+		-moz-box-sizing: border-box;    
+		box-sizing: border-box; 
+	}
+
+}
+</style>
+</head>
+
+<body>
+
+<button type="button" id="close_bar" class="close" data-dismiss="alert"><span>×</span></button>
+
+<form method="post" name="form_BE_box" action="#" id="form_be_box">
+	<h1>Inscrivez-vous à la newsletter </h1>
+	<h2>Ne ratez plus rien de l'actualité de Maison&Travaux</h2>
+
+	<input type="email" required name="mail" placeholder="Votre adresse mail" id="MAIL"/>
+	<button class="button" type="submit">M'inscrire</button><br class="clearfix"/>
+	<input type="checkbox" value="1" name="OPTIN_PART" id="OPTIN_PART_CHECK" /> 
+	<label id="inscrit" for="fou">Je souhaite recevoir les bons plans partenaires </label> 
+</form>
+
+</body>
+</html>

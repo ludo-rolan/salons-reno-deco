@@ -1,0 +1,580 @@
+commit bc083f63a34e709c3442b076e59f6946a1e821e4
+Author: rahal <rahal.aboulfeth@gmail.com>
+Date:   Fri Apr 1 15:34:37 2016 +0100
+
+    added filter precache_url_minify
+
+diff --git a/wp-content/plugins/w3-total-cache/lib/W3/Minify.php b/wp-content/plugins/w3-total-cache/lib/W3/Minify.php
+index 297c458..2e3ed5c 100755
+--- a/wp-content/plugins/w3-total-cache/lib/W3/Minify.php
++++ b/wp-content/plugins/w3-total-cache/lib/W3/Minify.php
+@@ -603,6 +603,7 @@ class W3_Minify {
+      */
+     function _precache_file($url, $type) {
+         $lifetime = $this->_config->get_integer('minify.lifetime');
++        $url = apply_filters('precache_url_minify' , $url );
+         $cache_path = sprintf('%s/minify_%s.%s', w3_cache_blog_dir('minify'), md5($url), $type);
+ 
+         if (!file_exists($cache_path) || @filemtime($cache_path) < (time() - $lifetime)) {
+diff --git a/wp-content/plugins/w3-total-cache/lib/W3/PgCache.php b/wp-content/plugins/w3-total-cache/lib/W3/PgCache.php
+index 5f698aa..4f64443 100755
+--- a/wp-content/plugins/w3-total-cache/lib/W3/PgCache.php
++++ b/wp-content/plugins/w3-total-cache/lib/W3/PgCache.php
+@@ -201,7 +201,7 @@ class W3_PgCache {
+                     $w3_late_init = true;
+                     return;
+                 } else {
+-                    $this->process_cached_page($this->_cached_data);
++                	 $this->process_cached_page($this->_cached_data);
+                     exit;
+                 }
+             } else
+@@ -1116,6 +1116,10 @@ class W3_PgCache {
+         $bc_lifetime = $this->_config->get_integer(
+             'browsercache.html.lifetime');
+ 
++        // Override filetime if X-Accel-Expires
++        if ( isset( $custom_headers['X-Accel-Expires']) && is_numeric($custom_headers['X-Accel-Expires']) )
++        	$bc_lifetime = $custom_headers['X-Accel-Expires'];
++
+         $expires = (is_null($time)? $curr_time: $time) + $bc_lifetime;
+         $max_age = ($expires > $curr_time ? $expires - $curr_time : 0);
+ 
+@@ -1525,8 +1529,8 @@ class W3_PgCache {
+                 'time' => $time,
+                 'content' => &$buffers[$_compression]
+             );
++            $cache->set($_page_key, $_data, apply_filters('w3tc_pgcache_lifetime' , $this->_lifetime , $headers ) , $group);
+ 
+-            $cache->set($_page_key, $_data, $this->_lifetime, $group);
+         }
+ 
+         /**
+diff --git a/wp-content/plugins/w3-total-cache/lib/W3/PgCache.php b/wp-content/plugins/w3-total-cache/lib/W3/PgCache.php
+index 4f64443..b3417d9 100755
+--- a/wp-content/plugins/w3-total-cache/lib/W3/PgCache.php
++++ b/wp-content/plugins/w3-total-cache/lib/W3/PgCache.php
+@@ -1123,6 +1123,12 @@ class W3_PgCache {
+         $expires = (is_null($time)? $curr_time: $time) + $bc_lifetime;
+         $max_age = ($expires > $curr_time ? $expires - $curr_time : 0);
+ 
++        // max-age and X-Accel-Expires should always have the same value
++        // so nginx will set the correct expiration for the cache
++        if( isset($custom_headers['X-Accel-Expires']) ){
++        	$custom_headers['X-Accel-Expires'] = $max_age;
++        }
++
+         if ($is_404) {
+             /**
+              * Add 404 header
+diff --git a/wp-content/plugins/w3-total-cache/lib/W3/PgCache.php b/wp-content/plugins/w3-total-cache/lib/W3/PgCache.php
+index b3417d9..3b804f3 100755
+--- a/wp-content/plugins/w3-total-cache/lib/W3/PgCache.php
++++ b/wp-content/plugins/w3-total-cache/lib/W3/PgCache.php
+@@ -223,7 +223,7 @@ class W3_PgCache {
+      */
+     function _extract_cached_page() {
+         $cache = $this->_get_cache();
+-
++        
+         $mobile_group = $this->_get_mobile_group();
+         $referrer_group = $this->_get_referrer_group();
+         $encryption = $this->_get_encryption();
+@@ -241,6 +241,18 @@ class W3_PgCache {
+             $this->_sitemap_matched = false;
+         }
+ 
++        // just flush
++        if ( isset( $_COOKIE['flush_pg'] ) ){
++        	// compressed
++        	$cache->hard_delete($this->_page_key, $group);
++        	// uncompressed
++        	$this->_page_key = $this->_get_page_key($mobile_group,
++                $referrer_group, $encryption, false);
++        	// hard delete
++        	$cache->hard_delete($this->_page_key, $group);
++        	return null;
++        }
++
+         /**
+          * Check if page is cached
+          */
+diff --git a/wp-content/plugins/w3-total-cache/lib/W3/PgCache.php b/wp-content/plugins/w3-total-cache/lib/W3/PgCache.php
+index 3b804f3..6175a92 100755
+--- a/wp-content/plugins/w3-total-cache/lib/W3/PgCache.php
++++ b/wp-content/plugins/w3-total-cache/lib/W3/PgCache.php
+@@ -1138,7 +1138,7 @@ class W3_PgCache {
+         // max-age and X-Accel-Expires should always have the same value
+         // so nginx will set the correct expiration for the cache
+         if( isset($custom_headers['X-Accel-Expires']) ){
+-        	$custom_headers['X-Accel-Expires'] = $max_age;
++        	$custom_headers['X-Accel-Expires'] = ( $max_age > 0 ? $max_age : 1 ) ;
+         }
+ 
+         if ($is_404) {
+ diff --git a/wp-content/plugins/w3-total-cache/lib/W3/PgCache.php b/wp-content/plugins/w3-total-cache/lib/W3/PgCache.php
+index 6175a92..a24a392 100755
+--- a/wp-content/plugins/w3-total-cache/lib/W3/PgCache.php
++++ b/wp-content/plugins/w3-total-cache/lib/W3/PgCache.php
+@@ -1526,6 +1526,8 @@ class W3_PgCache {
+         } elseif ($this->_sitemap_matched)
+             $group = 'sitemaps';
+ 
++        // get lifetime, should update headers to be cached
++        $lifetime = apply_filters('w3tc_pgcache_lifetime' , $this->_lifetime , $headers ) ;
+         foreach ($compressions as $_compression) {
+             $_page_key = $this->_get_page_key($mobile_group,
+                 $referrer_group, $encryption, $_compression,
+@@ -1538,6 +1540,7 @@ class W3_PgCache {
+ 
+             $this->_compress($buffers[$_compression], $_compression);
+ 
++            
+             /**
+              * Store cache data
+              */
+@@ -1547,7 +1550,7 @@ class W3_PgCache {
+                 'time' => $time,
+                 'content' => &$buffers[$_compression]
+             );
+-            $cache->set($_page_key, $_data, apply_filters('w3tc_pgcache_lifetime' , $this->_lifetime , $headers ) , $group);
++            $cache->set($_page_key, $_data, $lifetime , $group);
+ 
+         }
+diff --git a/wp-content/plugins/w3-total-cache/inc/options/general.php b/wp-content/plugins/w3-total-cache/inc/options/general.php
+index 2deb34b..c606629 100755
+--- a/wp-content/plugins/w3-total-cache/inc/options/general.php
++++ b/wp-content/plugins/w3-total-cache/inc/options/general.php
+@@ -259,6 +259,7 @@
+                     </optgroup>
+                         <optgroup label="<?php _e('Multiple Servers:', 'w3-total-cache'); ?>">
+                             <option value="memcached"<?php selected($this->_config->get_string('objectcache.engine'), 'memcached'); ?><?php if (! $check_memcached): ?> disabled="disabled"<?php endif; ?>><?php _e('Memcached', 'w3-total-cache'); ?></option>
++                             <option value="memcachedmulti"<?php selected($this->_config->get_string('pgcache.engine'), 'memcachedmulti'); ?><?php if (! $check_memcached): ?> disabled="disabled"<?php endif; ?>><?php _e('MemcachedMulti', 'w3-total-cache'); ?></option>
+                         </optgroup>
+                     </select>
+                 </td>
+diff --git a/wp-content/plugins/w3-total-cache/inc/options/objectcache.php b/wp-content/plugins/w3-total-cache/inc/options/objectcache.php
+index 45eabd1..1299378 100755
+--- a/wp-content/plugins/w3-total-cache/inc/options/objectcache.php
++++ b/wp-content/plugins/w3-total-cache/inc/options/objectcache.php
+@@ -22,7 +22,7 @@
+     <div class="metabox-holder">
+         <?php echo $this->postbox_header(__('Advanced', 'w3-total-cache'), '', 'advanced'); ?>
+         <table class="form-table">
+-            <?php if ($this->_config->get_string('objectcache.engine') == 'memcached'): ?>
++            <?php if ( in_array( $this->_config->get_string('objectcache.engine') , ['memcached' , 'memcachedmulti'] )) : ?>
+             <tr>
+                 <th><label for="memcached_servers"><?php w3_e_config_label('objectcache.memcached.servers') ?></label></th>
+                 <td>
+diff --git a/wp-content/plugins/w3-total-cache/lib/W3/Cache.php b/wp-content/plugins/w3-total-cache/lib/W3/Cache.php
+index 857482d..a94b7e0 100755
+--- a/wp-content/plugins/w3-total-cache/lib/W3/Cache.php
++++ b/wp-content/plugins/w3-total-cache/lib/W3/Cache.php
+@@ -8,6 +8,7 @@
+  * W3 Cache engine types
+  */
+ define('W3TC_CACHE_MEMCACHED', 'memcached');
++define('W3TC_CACHE_MEMCACHED_MULTI', 'memcachedmulti');
+ define('W3TC_CACHE_APC', 'apc');
+ define('W3TC_CACHE_EACCELERATOR', 'eaccelerator');
+ define('W3TC_CACHE_XCACHE', 'xcache');
+@@ -41,6 +42,10 @@ class W3_Cache {
+                     w3_require_once(W3TC_LIB_W3_DIR . '/Cache/Memcached.php');
+                     $instances[$instance_key] = new W3_Cache_Memcached($config);
+                     break;
++                case W3TC_CACHE_MEMCACHED_MULTI:
++                    w3_require_once(W3TC_LIB_W3_DIR . '/Cache/MemcachedMulti.php');
++                    $instances[$instance_key] = new W3_Cache_MemcachedMulti($config);
++                    break;
+ 
+                 case W3TC_CACHE_APC:
+                     w3_require_once(W3TC_LIB_W3_DIR . '/Cache/Apc.php');
+diff --git a/wp-content/plugins/w3-total-cache/lib/W3/Cache/Memcached.php b/wp-content/plugins/w3-total-cache/lib/W3/Cache/Memcached.php
+index 057099f..8bce1b2 100755
+--- a/wp-content/plugins/w3-total-cache/lib/W3/Cache/Memcached.php
++++ b/wp-content/plugins/w3-total-cache/lib/W3/Cache/Memcached.php
+@@ -18,14 +18,14 @@ class W3_Cache_Memcached extends W3_Cache_Base {
+      *
+      * @var Memcache
+      */
+-    private $_memcache = null;
++    protected $_memcache = null;
+ 
+     /*
+      * Used for faster flushing
+      *
+      * @var integer $_key_version
+      */
+-    private $_key_version = array();
++    protected $_key_version = array();
+ 
+     /**
+      * constructor
+diff --git a/wp-content/plugins/w3-total-cache/lib/W3/ObjectCache.php b/wp-content/plugins/w3-total-cache/lib/W3/ObjectCache.php
+index ebd1241..432956d 100755
+--- a/wp-content/plugins/w3-total-cache/lib/W3/ObjectCache.php
++++ b/wp-content/plugins/w3-total-cache/lib/W3/ObjectCache.php
+@@ -540,6 +540,7 @@ class W3_ObjectCache {
+ 
+             switch ($engine) {
+                 case 'memcached':
++                case 'memcachedmulti':
+                     $engineConfig = array(
+                         'servers' => $this->_config->get_array('objectcache.memcached.servers'),
+                         'persistant' => $this->_config->get_boolean('objectcache.memcached.persistant')
+diff --git a/wp-content/themes/reworldmedia/functions.php b/wp-content/themes/reworldmedia/functions.php
+index 9063b22..ab0e8ef 100644
+
+diff --git a/wp-content/plugins/w3-total-cache/wp-content/object-cache.php b/wp-content/plugins/w3-total-cache/wp-content/object-cache.php
+index 56e657c..a505681 100755
+--- a/wp-content/plugins/w3-total-cache/wp-content/object-cache.php
++++ b/wp-content/plugins/w3-total-cache/wp-content/object-cache.php
+@@ -11,7 +11,9 @@ if (!defined('W3TC_DIR')) {
+     define('W3TC_DIR', (defined('WP_PLUGIN_DIR') ? WP_PLUGIN_DIR : WP_CONTENT_DIR . '/plugins') . '/w3-total-cache');
+ }
+ 
+-if (!@is_dir(W3TC_DIR) || !file_exists(W3TC_DIR . '/inc/define.php')) {
++if ( defined('ALTERNATIVE_OBJCACHE')){
++	require_once (ABSPATH . ALTERNATIVE_OBJCACHE );
++} else if (!@is_dir(W3TC_DIR) || !file_exists(W3TC_DIR . '/inc/define.php')) {
+     if (!defined('WP_ADMIN')) { // lets don't show error on front end
+         require_once (ABSPATH . WPINC . '/cache.php');
+     } else {
+ diff --git a/wp-content/plugins/w3-total-cache/lib/W3/Cache/MemcachedMulti.php b/wp-content/plugins/w3-total-cache/lib/W3/Cache/MemcachedMulti.php
+index d63e751..cdff485 100644
+--- a/wp-content/plugins/w3-total-cache/lib/W3/Cache/MemcachedMulti.php
++++ b/wp-content/plugins/w3-total-cache/lib/W3/Cache/MemcachedMulti.php
+@@ -29,7 +29,7 @@ class W3_Cache_MemcachedMulti extends W3_Cache_Memcached {
+     }
+ 
+     function parse_request($query){
+-    	$this->current_url = $this->_host.md5( serialize( $query->query_vars )) ;
++    	$this->current_url = $this->_host.md5( $_SERVER['REQUEST_URI'] ) ;
+     	
+ 
+     	$keys = $this->get( $this->current_url , 'multi_keys' );
+@@ -39,13 +39,16 @@ class W3_Cache_MemcachedMulti extends W3_Cache_Memcached {
+     	$groups = array();
+     	foreach ( $keys as $key_cache) {
+     		list( $key , $group) = $key_cache;
+-    		$to_get[] = $this->get_item_key($key) . '_' . $this->_blog_id ;
+-    		if ( !in_array( $group, $groups )){
+-    			$to_get[] = $this->_get_key_version_key($group);
+-    			$groups[] = $group;
++    		$keycache = $this->get_item_key($key) . '_' . $this->_blog_id ;
++    		if ( !in_array( $keycache, $to_get )){
++    			$to_get[] = keycache;
++    		}
++    		$keygroup= $this->_get_key_version_key($group);
++    		if ( !in_array( $keygroup, $to_get )){
++    			$to_get[] = $keygroup;
+     		}
+     	}
+-    	$to_get=array_unique($to_get);
++
+     	//var_dump( $to_get );
+     	$this->_all = $this->_memcache->get($to_get , false );
+ 
+@@ -92,7 +95,7 @@ class W3_Cache_MemcachedMulti extends W3_Cache_Memcached {
+     }
+ 
+     function shutdown() { 
+-    	$this->set( $this->current_url , array_unique( $this->called_keys ) , EXPIRE_MEMCACHE_MULTI , 'multi_keys');
++    	$this->set( $this->current_url , $this->called_keys , EXPIRE_MEMCACHE_MULTI , 'multi_keys');
+ 
+     }
+diff --git a/wp-content/plugins/w3-total-cache/inc/options/general.php b/wp-content/plugins/w3-total-cache/inc/options/general.php
+index c606629..a1556db 100755
+--- a/wp-content/plugins/w3-total-cache/inc/options/general.php
++++ b/wp-content/plugins/w3-total-cache/inc/options/general.php
+@@ -259,7 +259,8 @@
+                     </optgroup>
+                         <optgroup label="<?php _e('Multiple Servers:', 'w3-total-cache'); ?>">
+                             <option value="memcached"<?php selected($this->_config->get_string('objectcache.engine'), 'memcached'); ?><?php if (! $check_memcached): ?> disabled="disabled"<?php endif; ?>><?php _e('Memcached', 'w3-total-cache'); ?></option>
+-                             <option value="memcachedmulti"<?php selected($this->_config->get_string('pgcache.engine'), 'memcachedmulti'); ?><?php if (! $check_memcached): ?> disabled="disabled"<?php endif; ?>><?php _e('MemcachedMulti', 'w3-total-cache'); ?></option>
++                            <option value="memcachedmulti"<?php selected($this->_config->get_string('objectcache.engine'), 'memcachedmulti'); ?><?php if (! $check_memcached): ?> disabled="disabled"<?php endif; ?>><?php _e('MemcachedMulti', 'w3-total-cache'); ?></option>
++                            <option value="redis"<?php selected($this->_config->get_string('objectcache.engine'), 'redis'); ?><?php if (! defined('REDIS_HOST')): ?> disabled="disabled"<?php endif; ?>><?php _e('Redis', 'w3-total-cache'); ?></option>
+                         </optgroup>
+                     </select>
+                 </td>
+diff --git a/wp-content/plugins/w3-total-cache/lib/W3/Cache.php b/wp-content/plugins/w3-total-cache/lib/W3/Cache.php
+index a94b7e0..ccb8b15 100755
+--- a/wp-content/plugins/w3-total-cache/lib/W3/Cache.php
++++ b/wp-content/plugins/w3-total-cache/lib/W3/Cache.php
+@@ -7,6 +7,7 @@
+ /**
+  * W3 Cache engine types
+  */
++define('W3TC_CACHE_REDIS', 'redis');
+ define('W3TC_CACHE_MEMCACHED', 'memcached');
+ define('W3TC_CACHE_MEMCACHED_MULTI', 'memcachedmulti');
+ define('W3TC_CACHE_APC', 'apc');
+@@ -76,6 +77,10 @@ class W3_Cache {
+                     w3_require_once(W3TC_LIB_W3_DIR . '/Cache/File/Generic.php');
+                     $instances[$instance_key] = new W3_Cache_File_Generic($config);
+                     break;
++                case W3TC_CACHE_REDIS:
++                    w3_require_once(W3TC_LIB_W3_DIR . '/Cache/Redis.php');
++                    $instances[$instance_key] = new W3_Cache_Redis($config);
++                    break;
+ 
+                 default:
+                     trigger_error('Incorrect cache engine', E_USER_WARNING);
+diff --git a/wp-content/plugins/w3-total-cache/lib/W3/Cache/Redis.php b/wp-content/plugins/w3-total-cache/lib/W3/Cache/Redis.php
+new file mode 100644
+index 0000000..e4eacb9
+--- /dev/null
++++ b/wp-content/plugins/w3-total-cache/lib/W3/Cache/Redis.php
+@@ -0,0 +1,190 @@
++<?php
++
++/**
++ * PECL Memcached class
++ */
++if (!defined('W3TC')) {
++    die();
++}
++
++w3_require_once(W3TC_LIB_W3_DIR . '/Cache/Base.php');
++
++/**
++ * Class W3_Cache_Memcached
++ */
++class W3_Cache_Redis extends W3_Cache_Base {
++    /**
++     * Memcache object
++     *
++     * @var Memcache
++     */
++    protected $_redis = null;
++
++    /*
++     * Used for faster flushing
++     *
++     * @var integer $_key_version
++     */
++    protected $_key_version = array();
++
++    /**
++     * constructor
++     *
++     * @param array $config
++     */
++    function __construct($config) {
++        
++        $options = array(
++		    'namespace' => 'w3tc_',
++		    'servers'   => array(
++		       array('host' => REDIS_HOST , 'port' => REDIS_PORT),
++		    )
++		);
++
++        if ( defined('REDIS_HOST2') && defined('REDIS_PORT2')) {
++			$option['servers'][]  = array(
++                'host'=>REDIS_HOST2 , 'port'=> REDIS_PORT2
++            );
++		}
++		if(  !class_exists('Rediska')){
++			require_once REDISKA_PATH.'/Rediska.php';
++		}
++		
++		$this->_redis = new Rediska($options);
++
++        return true;
++    }
++
++    /**
++     * Adds data
++     *
++     * @param string $key
++     * @param mixed $var
++     * @param integer $expire
++     * @param string $group Used to differentiate between groups of cache values
++     * @return boolean
++     */
++    function add($key, &$var, $expire = 0, $group = '0') {
++        return $this->set($key, $var, $expire, $group);
++    }
++
++    /**
++     * Sets data
++     *
++     * @param string $key
++     * @param mixed $var
++     * @param integer $expire
++     * @param string $group Used to differentiate between groups of cache values
++     * @return boolean
++     */
++    function set($key, $var, $expire = 0, $group = '0') {
++        $keyname = $this->get_item_key($key);
++        $rkey = new Rediska_Key($keyname );
++        $rkey->expire($expire );
++        $rkey->setRediska($this->_redis);
++	    return $rkey->setValue($var);	    
++    }
++
++    /**
++     * Returns data
++     *
++     * @param string $key
++     * @param string $group Used to differentiate between groups of cache values
++     * @return mixed
++     */
++    function get_with_old($key, $group = '0') {
++        $has_old_data = false;
++
++        $keyname = $this->get_item_key($key);
++        $rkey = new Rediska_Key($keyname);
++        $rkey->setRediska($this->_redis);
++
++	    return array ($rkey->getValue() ,$has_old_data) ;	    
++    }
++
++    /**
++     * Replaces data
++     *
++     * @param string $key
++     * @param mixed $var
++     * @param integer $expire
++     * @param string $group Used to differentiate between groups of cache values
++     * @return boolean
++     */
++    function replace($key, &$var, $expire = 0, $group = '0') {
++        return $this->set($key, $var, $expire, $group);
++    }
++
++    /**
++     * Deletes data
++     *
++     * @param string $key
++     * @param string $group
++     * @return boolean
++     */
++    function delete($key, $group = '') {
++        $this->hard_delete($key);
++        /*
++        if ($this->_use_expired_data) {
++            $v = @$this->_memcache->get($key . '_' . $this->_blog_id);
++            if (is_array($v)) {
++                $v['key_version'] = 0;
++                @$this->_memcache->set($key . '_' . $this->_blog_id, $v, false, 0);
++                return true;
++            }
++        }
++        return @$this->_memcache->delete($key . '_' . $this->_blog_id, 0); */
++    }
++
++    /**
++     * Key to delete, deletes .old and primary if exists.
++     * @param $key
++     * @return bool
++     */
++    function hard_delete($key) {
++
++        $keyname = $this->get_item_key($key);
++        $rkey = new Rediska_Key($keyname);
++        $rkey->setRediska($this->_redis);
++        return $rkey->delete();	
++    }
++
++    /**
++     * Flushes all data
++     *
++     * @param string $group Used to differentiate between groups of cache values
++     * @return boolean
++     */
++    function flush($group = '0') {
++        return true;
++    }
++
++    /**
++     * Checks if engine can function properly in this environment
++     * @return bool
++     */
++    public function available() {
++        return defined('REDIS_HOST');
++    }
++
++    /**
++     * Returns key version
++     *
++     * @param string $group Used to differentiate between groups of cache values
++     * @return integer
++     */
++    private function _get_key_version($group = '0') {
++       return false;
++    }
++
++    /**
++     * Sets new key version
++     *
++     * @param $v
++     * @param string $group Used to differentiate between groups of cache values
++     * @return boolean
++     */
++    private function _set_key_version($v, $group = '0') {
++    	return false;    
++    }
++} 
+diff --git a/wp-content/plugins/w3-total-cache/lib/W3/Cache.php b/wp-content/plugins/w3-total-cache/lib/W3/Cache.php
+index ccb8b15..5234610 100755
+--- a/wp-content/plugins/w3-total-cache/lib/W3/Cache.php
++++ b/wp-content/plugins/w3-total-cache/lib/W3/Cache.php
+@@ -40,8 +40,13 @@ class W3_Cache {
+         if (!isset($instances[$instance_key])) {
+             switch ($engine) {
+                 case W3TC_CACHE_MEMCACHED:
+-                    w3_require_once(W3TC_LIB_W3_DIR . '/Cache/Memcached.php');
+-                    $instances[$instance_key] = new W3_Cache_Memcached($config);
++                	if ( defined('ALTERNATIVE_OBJCACHE')){
++                		require_once ( dirname( ABSPATH . ALTERNATIVE_OBJCACHE) . '/class-object-cache.php' );
++                		$instances[$instance_key] = new WP_Object_Cache($config);
++                	}else{
++                		w3_require_once(W3TC_LIB_W3_DIR . '/Cache/Memcached.php');
++                    	$instances[$instance_key] = new W3_Cache_Memcached($config);
++                	}
+                     break;
+                 case W3TC_CACHE_MEMCACHED_MULTI:
+                     w3_require_once(W3TC_LIB_W3_DIR . '/Cache/MemcachedMulti.php');
+diff --git a/wp-content/plugins/w3-total-cache/inc/define.php b/wp-content/plugins/w3-total-cache/inc/define.php
+index d85910c..cbd9554 100755
+--- a/wp-content/plugins/w3-total-cache/inc/define.php
++++ b/wp-content/plugins/w3-total-cache/inc/define.php
+@@ -1107,7 +1107,19 @@ function w3_normalize_file_minify($file) {
+     if (w3_is_url($file)) {
+         if (strstr($file, '?') === false) {
+             $domain_url_regexp = '~' . w3_get_domain_url_regexp() . '~i';
+-            $file = preg_replace($domain_url_regexp, '', $file);
++            $mfile = preg_replace($domain_url_regexp, '', $file);
++            // only if there is other linked domains
++            global $linked_domains;
++            if ( $mfile == $file && is_array($linked_domains)){
++            	foreach ( $linked_domains as $domain ){
++	            	$domain_url_regexp = '~' . w3_get_url_regexp($domain) . '~i';
++	           		$mfile = preg_replace($domain_url_regexp, '', $mfile);
++	           		// one is enough
++	           		if( $mfile != $file )
++	           			break;
++            	}
++            } 
++            $file = $mfile;
+         }
+     }
+
+diff --git a/wp-content/plugins/w3-total-cache/wp-content/db.php b/wp-content/plugins/w3-total-cache/wp-content/db.php
+index 44a1950..b72e0ec 100755
+--- a/wp-content/plugins/w3-total-cache/wp-content/db.php
++++ b/wp-content/plugins/w3-total-cache/wp-content/db.php
+@@ -25,9 +25,10 @@ if (!@is_dir(W3TC_DIR) || !file_exists(W3TC_DIR . '/inc/define.php')) {
+ 
+     // no caching during activation
+     $is_installing = (defined('WP_INSTALLING') && WP_INSTALLING);
++    $is_testing = (defined('WP_IS_UNITTESTING') && WP_IS_UNITTESTING);
+ 
+     $config = w3_instance('W3_Config');
+-    if ((!$is_installing && $config->get_boolean('dbcache.enabled')) || w3_is_dbcluster()) {
++    if ((!$is_installing && !$is_testing && $config->get_boolean('dbcache.enabled')) || w3_is_dbcluster()) {
+         if (defined('DB_TYPE')) {
+             $db_driver_path = sprintf('%s/Db/%s.php', W3TC_LIB_W3_DIR, DB_TYPE);
+ 
+

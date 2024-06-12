@@ -1,0 +1,10 @@
+.header-visuel-content {
+    &::before{
+        content: "";
+        display: inline-block;
+        height: 100%;
+        position: absolute;
+        width: 5px;
+        background: $second_color;
+    }
+}

@@ -1,0 +1,102 @@
+.exposant-card{
+    &-top{
+        height: 112px;
+        position: relative;
+        margin-bottom: 25px;
+    }
+    &-left{
+        text-align: left;
+        align-items: center;
+        height: 100%;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+    &-right{
+        align-items: center;
+        position: relative; 
+        transform: translateY(-50%); 
+        top: 50%;
+        h3{
+            @include commuters-sans-extrabold;
+            font-size: 25px;
+            text-transform: uppercase;
+            margin: 12px 0;
+        }
+        p{
+            @include commuters-sans-regular;
+            font-size: 18px;
+            margin: 0;
+            margin-bottom: 0;
+        }
+    }
+    &-bottom{
+        p{
+            @include commuters-sans-regular;
+            font-size: 18px;
+            margin: 0;
+            margin-bottom: 50px;
+        }
+    }
+    
+}
+
+.search-form{
+    display: block;
+    text-align: center;
+    height: auto;
+    margin: 0 auto;    
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    input{
+        @include commuters-sans-semibold;
+        text-transform: uppercase;
+        font-size: 16px;
+        border: 1px solid;
+        border-radius: 80px;
+        padding: 20px 40px;
+        width: 100% ;
+        white-space: nowrap;
+    }
+    span{
+        display: inline-block;
+        position: absolute;
+        right: 30px;
+        top: 0;
+        bottom: 0;
+        width: 40px;
+        height: 100%;
+        background: none;
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        i{
+            font-size: 16px;
+        }
+    }
+    
+}
+
+.see-more-btn{
+    @include commuters-sans-semibold;
+    text-transform: uppercase;
+    font-size: 16px;
+    margin: 20px 0;
+    text-align: center;
+    padding: 15px 36px;
+    position: relative;
+    border-radius: 90px;
+    border: 1px solid;
+    margin-top: 26px;
+    background: none;
+    text-decoration: none !important;
+}
+
+.page-content.page-listing {
+    padding: 0;
+}

@@ -1,0 +1,17 @@
+.header-visuel {
+	// .header-visuel-content
+	&-content {
+		padding-left: 20px;
+		border-left: 4px solid $second-color;
+	}
+	.exposant{
+		// .exposant_name
+		&_name{
+			font-size: 42px;
+		}
+		// .exposant_cat
+		&_cat{
+			font-size: 22px;
+		}
+	}
+}

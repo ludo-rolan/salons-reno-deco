@@ -1,0 +1,56 @@
+// $main_color : #091852; // blue
+$main-color: rgb(65, 89, 66);
+// $second_color: #d3182a; // red
+$second-color: blue;
+$default_sans_serif : Helvetica, Arial, sans-serif; 
+$btn-primary-bg: $second-color;
+$btn-default-bg: $main_color;
+$btn-default-color: #ffffff;
+$btn-default-border: $main_color;
+$padding-base-horizontal: 20px;
+$brand-info: $main_color;
+$link-color: #414141;
+$link-hover-color: #414141;
+$btn-primary-bg: $second-color;
+
+$breadcrumb-bg: transparent;
+$breadcrumb-padding-vertical: 0;
+$breadcrumb-padding-horizontal: 0;
+$breadcrumb-color: $main_color;
+$breadcrumb-active-color: lighten($main_color, 20%);
+
+$navbar-border-radius: 0;
+$modal-backdrop-bg: $main_color;
+
+$barre-top-color: #eae7e7;
+
+$main-color-light: rgba(9, 24, 82, 0.2);
+$second-color-light: rgba(211, 24, 42, 0.2);
+$nav-link-hover-bg: transparent;
+
+$text-color: #000000;
+$grid-gutter-width: 20px;
+$container-large-desktop: 1000px;
+$modal-lg: 1090px;
+$modal-backdrop-opacity: .9;
+$btn-border-radius-base: 0;
+$btn-border-radius-large: 0;
+$btn-border-radius-small: 0;
+
+$main-font: 'ProximaNova-Regular', $default_sans_serif;
+$main-font-semibold: 'ProximaNova-Semibold', $default_sans_serif;
+$main-font-bold: 'ProximaNova-Bold', $default_sans_serif;
+$main-font-extrabold: 'ProximaNova-ExtraBold', $default_sans_serif;
+
+$second-font: 'RobotoCondensed-Regular', $default_sans_serif;
+$second-font-light: 'RobotoCondensed-Light', $default_sans_serif;
+$second-font-bold: 'RobotoCondensed-Bold', $default_sans_serif;
+
+$third-font: 'Raleway-Regular', $default_sans_serif;
+$third-font-light: 'Raleway-Light', $default_sans_serif;
+$third-font-semibold: 'Raleway-SemiBold', $default_sans_serif;
+$third-font-bold: 'Raleway-Bold', $default_sans_serif;
+
+$fourth-font: 'MyriadPro-Regular', $default_sans_serif;
+
+@import 'bootstrap-v3/variables';

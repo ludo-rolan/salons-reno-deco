@@ -1,0 +1,43 @@
+// Mobile
+@charset "UTF-8";
+@import "compass/css3";
+
+@import "../../../core/assets/bootstrap-sass/sass/fonts";
+
+@import "../../../core/assets/bootstrap-sass/sass/variables";
+@import "utils/variables";
+
+@import "../../../core/assets/bootstrap-sass/sass/bootstrap_v3";
+
+@import "../../../core/assets/bootstrap-sass/sass/responsive-v3";
+@import "../../../core/assets/bootstrap-sass/sass/mobile";
+
+
+@import "components/base/general";
+@import "components/base/header";
+@import "components/base/sidebar";
+@import "components/base/footer";
+@import "components/base/bandeau-partners";
+@import "components/base/promo";
+
+//Tablet
+@media (min-width: $screen-sm-min){
+	@import "components/desktop/general_tablet";
+	@import "components/desktop/header_tablet";
+	@import "components/desktop/sidebar_tablet";
+}
+
+//Desktop
+@media (min-width: $screen-md-min){
+	@import "components/desktop/general_desktop";
+	@import "components/desktop/header_desktop";
+	@import "components/desktop/sidebar_desktop";
+	@import "components/desktop/skin_habillage";
+}
+
+//Large Screens
+@media (min-width: $screen-lg-min){
+	@import "components/desktop/general_large";
+	@import "components/desktop/header_large";
+	@import "components/desktop/sidebar_large";
+}

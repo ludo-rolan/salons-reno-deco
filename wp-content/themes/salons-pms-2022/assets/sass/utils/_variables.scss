@@ -1,0 +1,124 @@
+// $main_color : #000; // Black
+$main_color: orange;
+// $second_color: #fff; // White
+$second-color: rgb(28, 40, 28);
+
+$pms_grey_color: #707070;
+$pms_navbar_grey_color: #F5F5F5;
+$pms_light_grey_color: #BABABA;
+$pms_grey_hover_color: #ADADAD;
+$pms_purple_color: #A046FF;
+$pms_purple_hover_color: #A045FC;
+$pms_cyan_color: #00BEFF;
+$pms_green_color: #01DB5C;
+$pms_green_color_hover: #1ADE6C;
+$pms_red_color: #FF3C14;
+$pms_red_color_hover: #FD3C1D;
+$pms_white_hover_color: #FAFAFA;
+$pms_hover_grey_color:rgba(255, 255, 255, 0.253);
+
+$pms_commuterssans_font: "commuters-sans";
+
+//header sizes
+$header_height: 130px;
+$header_height_fixed: 80px;
+$logo_height: 120px;
+$logo_height_fixed: 80px;
+
+
+
+
+
+@mixin commuters-sans-regular() {
+    font-family: $pms_commuterssans_font;
+    font-weight: normal;
+    font-style: normal;
+}
+
+@mixin commuters-sans-bold() {
+    font-family: $pms_commuterssans_font;
+    font-weight: bold;
+    font-style: normal;
+}
+@mixin commuters-sans-italic() {
+    font-family: $pms_commuterssans_font;
+    font-weight: normal;
+    font-style: italic;
+}
+@mixin commuters-sans-semibold() {
+    font-family: $pms_commuterssans_font;
+    font-weight: 600;
+    font-style: normal;
+}
+@mixin commuters-sans-extrabold() {
+    font-family: $pms_commuterssans_font;
+    font-weight: 800;
+    font-style: normal;
+}
+
+@mixin commuters-sans-italicbold() {
+    font-family: $pms_commuterssans_font;
+    font-weight: bold;
+    font-style: italic;
+}
+
+$main_font: $pms_commuterssans_font, $default_sans_serif;
+
+$second-font: $pms_commuterssans_font, $default_sans_serif;
+
+$btn-primary-bg: $main_color;
+$btn-default-bg: $main_color;
+$second-color : $main_color;
+$btn-default-border: $main_color;
+$brand-info: $main_color;
+$btn-primary-bg: $main_color;
+$breadcrumb-color: $main_color;
+$breadcrumb-active-color: lighten($main_color, 20%);
+$modal-backdrop-bg: $main_color;
+
+
+
+$pagination-color: #2a2b2f;
+$pagination-active-bg: #eee;
+$pagination-active-color: #2a2b2f;
+
+$carousel-text-shadow: none;
+
+@mixin max-lines-css($lines-to-show) {
+    display: -webkit-box;
+    overflow: hidden;
+    position: relative;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: $lines-to-show;
+    -webkit-box-orient: vertical;
+}
+@mixin pms-btn($fontSize: 16px, $paddingVal: 15px 70px 15px 60px, $transformVal: none, $left: 0) {
+    @include commuters-sans-semibold;
+    font-size: $fontSize;
+    color: $main-color;
+    text-transform: uppercase;
+    border: 1px solid;
+    padding: $paddingVal;
+    border-radius: 30px;
+    transform: $transformVal;
+    left: $left;
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    &::after {
+        content: '>';
+        color: $main-color;
+        font-size: 18px;
+        font-weight: 800;
+        position: absolute;
+        right: 40px;
+    }
+   
+}
+
+.green-hover {
+    &:hover {
+        background-color: $pms_green_color_hover !important;
+        color: $main_color !important;
+    }
+}

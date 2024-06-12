@@ -1,0 +1,20 @@
+$main_color : #000; // Black
+$second_color: #fff; // White
+
+$btn-primary-bg: $main_color;
+$btn-default-bg: $main_color;
+$second-color : $main_color;
+$btn-default-border: $main_color;
+$brand-info: $main_color;
+$btn-primary-bg: $main_color;
+$breadcrumb-color: $main_color;
+$breadcrumb-active-color: lighten($main_color, 20%);
+$modal-backdrop-bg: $main_color;
+
+
+
+$pagination-color: #2a2b2f;
+$pagination-active-bg: #eee;
+$pagination-active-color: #2a2b2f;
+
+$carousel-text-shadow: none;

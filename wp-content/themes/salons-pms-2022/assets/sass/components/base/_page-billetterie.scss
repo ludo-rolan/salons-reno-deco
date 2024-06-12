@@ -1,0 +1,131 @@
+.page-landing-billetterie{
+    h2{
+        // h2.section-title
+        @include commuters-sans-extrabold;
+        font-size: 28px;
+        color: $main_color;
+        text-transform: uppercase;
+        &.section-title{
+            text-align: center;
+            margin-bottom: 40px;
+        }
+    }
+    .section{
+        margin: 60px 0;
+    }
+    .button{
+        @include commuters-sans-extrabold;
+        font-size: 18px;
+        padding: 20px 30px;
+        border-radius: 36px;
+        &:hover{
+            text-decoration: none;
+        }
+
+        &.billetterie{
+            background-color: $pms_green_color;
+            color: $main_color;
+            // .billetterie-button:hover
+            &:hover{
+                background-color: $pms_green_color_hover;
+                color: $main_color;
+            }
+        }
+        &.top{
+            background-color: transparent;
+            border: 1px solid white;
+            color: white;
+            // .top-button:hover
+            &:hover{
+                background-color: transparent;
+                color: white;
+            }
+        }
+        &.visual{
+            background-color: white;
+            border: 1px solid black;
+            color: black;
+            padding: 25px 50px;
+            // .visual-button:hover
+            &:hover{
+                background-color: white;
+            }
+        }
+    }
+    // .page-landing-billetterie .visual-header
+    .visual-header{
+
+    }
+    // .page-landing-billetterie .chiffres
+    .chiffres{
+
+    }
+    // .page-landing-billetterie .articles
+    .article{
+
+    }
+    // .page-landing-billetterie .passions
+    .passions{
+
+    }
+    // .page-landing-billetterie .partenaires
+    .partenaires{
+        text-align: center;
+        &.partners-logos{
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px 46px;
+            img{
+                height: 70px;
+                margin: 0 auto;
+            }
+        }
+    }
+    // .page-landing-billetterie .carousel
+    .carousel {
+        &-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 90%;
+            margin: 0px auto;
+            margin-bottom: 40px;
+        }
+        &-container{    
+            text-align: center;
+        }
+        .slick{
+            &-slide{
+                margin: 10px;
+                img{
+                    width: 100%;
+                    border: 2px solid #fff;
+                    height: 300px;
+                }
+            }
+        }
+        
+        button {
+            z-index: 1;
+            display: block;
+            position: relative;
+            background: #A045FC 0% 0% no-repeat padding-box;
+            border-radius: 5px;
+            width: 36px;
+            height: 36px;
+            border:unset;
+            opacity: 1;
+            //
+            &:first-child {
+                left: 12px;
+            }
+            &:last-child {
+                right: 12px;
+            }
+            & i{
+                color: white;
+            }
+        }
+    }
+}

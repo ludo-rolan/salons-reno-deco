@@ -1,0 +1,118 @@
+.carousel{
+	margin-bottom: 30px;
+	// .carousel-control
+	&-control{
+		top: 50%;
+		bottom: auto;
+		// width: 40px;
+		// height: 40px;
+		width: 30px;
+		height: 30px;
+		background-color: $main_color;
+		@include translateY(-50%);
+		&:after{
+			width: 8px;
+			height: 11px;
+			content: "";
+			display: block;
+			background-image: url('../images-v3/icons_sprite.png');
+			background-repeat: no-repeat;
+			top: 50%;
+			left: 50%;
+			position: relative;
+			@include translate(-50%, -50%);
+		}
+		&:hover{
+			@include opacity(1);
+		}
+		&.left{
+			&:after{
+				background-position: 0 -13px;
+			}
+		}
+		&.right{
+			&:after{
+				background-position: -10px -13px;
+			}
+		}
+	}
+	// .carousel-caption
+	&-caption{
+		padding-top: 0;
+		padding-bottom: 0;
+		bottom: 10px;
+		.info_cat {
+			margin-bottom: 10px;
+		}
+	}
+	// .carousel-visual
+	&-visual{
+		position: relative;
+		display: block;
+		overflow: hidden;
+		min-height: 150px;
+		&:after{
+			position: absolute;
+			content: '';
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.3);
+		}
+	}
+	// .carousel-title
+	&-title{
+		display: block;
+		font-size: 32px;
+		font-family: $main-font-semibold;
+		line-height: 1.2;
+		margin-top: 5px;
+		&, &:hover, &:focus, &:active{
+			color: #fff;
+		}
+	}
+	// .carousel-exposant
+	&-exposant{
+		// .carousel-exposant-caption
+		&-caption{
+			text-transform: uppercase;
+			padding-top: 0;
+			padding-bottom: 0;
+			bottom: 10px;
+			.info_cat{
+				padding: 0;
+				margin-bottom: 0;
+				font-size: 13px;
+				line-height: 1.3;
+				display: block;
+				background-color: transparent;
+				color: #fff;
+			}
+		}
+		// .carousel-exposant-img
+		&-img{
+			max-width: 50px;
+			margin-bottom: 6px;
+		}
+		// .carousel-exposant-stand
+		&-stand{
+			font-size: 13px;
+			font-family: $second-font-bold;
+			line-height: 1.2;
+		}
+		// .carousel-exposant-name
+		&-name{
+			display: block;
+			font-size: 28px;
+			font-family: $main-font-extrabold;
+			line-height: 1;
+			margin-top: 5px;
+			&, &:hover, &:focus, &:active{
+				color: #fff;
+			}
+		}
+	}
+}

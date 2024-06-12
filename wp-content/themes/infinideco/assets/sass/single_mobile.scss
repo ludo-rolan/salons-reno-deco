@@ -1,0 +1,172 @@
+@charset "UTF-8";
+@import "compass/css3";
+
+@import "../../../core/assets/bootstrap-sass/sass/fonts";
+
+@import "../../../core/assets/bootstrap-sass/sass/variables";
+@import "utils/variables";
+
+@import "components/base/breadcrumb";
+@import "components/base/bloc-rubrique";
+
+
+.post{
+	margin-top: 0;
+	margin-bottom: 0;
+	.title{
+		margin-top: 0;
+		margin-bottom: 5px;
+		font-size: 32px;
+		font-family: $main-font-semibold;
+		color: #000;
+		&:first-letter{
+			text-transform: uppercase;
+		}
+	}
+	// .post_signature
+	&_signature{
+		margin-bottom: 10px;
+		// .post_signature_item
+		&_item{
+			display: inline-block;
+			font-size: 14px;
+			font-family: $second-font;
+			color: #b2b2b2;
+			text-transform: uppercase;
+			&:not(:last-child):after{
+				content: "|";
+				display: inline-block;
+				margin-left: 4px;
+				margin-right: 4px;
+			}
+		}
+
+	}
+	.post-excerpt{
+		margin-top: 20px;
+		&, p{
+			font-size: 17px;
+			font-family: $main-font-bold;
+			color: #414141;
+		}
+		p{
+			margin-bottom: 0;
+		}
+	}
+}
+
+.top_img{
+	display: block;
+	margin-bottom: 20px;
+	img{
+		width: 100%;
+	}
+}
+
+.article_body_content{
+	position: relative;
+	margin-top: 20px;
+	font-size: 17px;
+	&, p{
+		font-family: $main-font;
+		font-size: 17px;
+		color: #414141;
+	}
+	> .pub_dfp.native {
+		margin-bottom: 10px;
+	}
+	h2, h3, h5, h6{
+		font-family: $second-font-bold;
+		color: $main-color;
+		text-transform: uppercase;
+	}
+	h1, .h1, h2, .h2, h3, .h3{
+		margin-top: 25px;
+		margin-bottom: 10px;
+	}
+	img{
+		margin-bottom: 20px;
+		&.pull-left{
+			margin-right: 20px;
+		}
+		&.pull-right{
+			margin-left: 20px;
+		}
+	}
+	a{
+		text-decoration: underline;
+		&, &:hover{
+			color: #000;
+		}
+	}
+	.aligncenter{
+		display: block;
+		margin: 5px auto 5px auto;
+	}
+	.alignright {
+		float:right;
+		margin: 5px 0 20px 20px;
+	}
+	.alignleft {
+		float: left;
+		margin: 5px 20px 20px 0;
+	}
+	strong{
+		margin: 0;
+		font-family: $main-font-bold;
+		font-size: 17px;
+	}
+}
+
+.thecontent{
+	position: relative;
+	.share-buttons{
+		display: block;
+		width: 60px;
+		position: absolute;
+		top: 0;
+		z-index: 80;
+		.linkShare,
+		.total-shares{
+			display: none!important;
+		}
+		ul{
+			padding: 0;
+			margin: 0;
+			li{
+				list-style: none;
+				display: block;
+				width: 58px;
+				height: 58px;
+				background-image: url('../images-v3/content_sm.png');
+				background-repeat: no-repeat;
+				background-position: 0 0;
+				&.facebook{
+					background-position: 0 0;
+				}
+				&.twitter{
+					background-position: 0 -58px;
+				}
+				&.gplus{
+					background-position: 0 -232px;
+				}
+				&.pinterest{
+					background-position: 0 -116px;
+				}
+				&.scoopit{
+					background-position: 0 -174px;
+				}
+				&.email{
+					background-position: 0 -174px;
+				}
+			}
+		}
+		.social{
+			position: relative;
+		}
+	}
+}
+
+#content .bloc-posts{
+	margin-top: 40px;
+}

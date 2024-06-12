@@ -1,0 +1,53 @@
+.popup_body, .popup_body_nl{
+	@include commuters-sans-regular;
+    background-color: white; 
+    color: black;
+	padding: 20px;
+    border-radius: 6px;
+    .dismiss_btn{
+        display: block; 
+        position:absolute; 
+        top:15px; 
+        right:15px; 
+        cursor: pointer;
+        text-align:right; 
+        color:black; 
+        line-height: 1em;
+        padding: 5px;
+        &:hover {
+            background-color: $pms_green_color;
+			border-radius: 50%;
+        }
+    }
+    p{
+        font-size: 14px;
+        text-transform: none;
+    }
+	h2.title{
+		@include commuters-sans-bold;
+		font-size: 52px;
+		font-weight:800;
+		text-transform: uppercase;
+        margin-top: 0;
+	}
+	.nl_footer_content{
+		text-align: center;
+		padding-top: 20px;
+		.nl_footer_text{
+			@include commuters-sans-regular;
+			font-size: 10px;
+            text-transform: none;
+			color: black;
+		}
+	}
+}
+
+@media screen and (max-width: 768px) {
+    .popup_body, .popup_body_nl{
+        padding: 10px;
+        h2.title{
+            @include commuters-sans-bold;
+            font-size: 28px;
+        }
+    }
+}

@@ -1,0 +1,90 @@
+diff --git a/wp-content/plugins/sitepress-multilingual-cms/classes/request-handling/class-wpml-language-resolution.php b/wp-content/plugins/sitepress-multilingual-cms/classes/request-handling/class-wpml-l
+index cdeec56..98af92b 100644
+--- a/wp-content/plugins/sitepress-multilingual-cms/classes/request-handling/class-wpml-language-resolution.php
++++ b/wp-content/plugins/sitepress-multilingual-cms/classes/request-handling/class-wpml-language-resolution.php
+@@ -89,7 +89,9 @@ class WPML_Language_Resolution {
+         *
+         * @return string|null
+         */
+-       private function get_referrer_language_code() {
++       //Source de la solution proposé par le support jusqu'à la sortie de la nouvelle version
++       //https://wpml.org/errata/adding-links-to-a-post-produces-ajax-fatal-error/
++       public function get_referrer_language_code() {
+                if ( ! empty( $_SERVER['HTTP_REFERER'] ) ) {
+                        $query_string = parse_url( $_SERVER['HTTP_REFERER'],
+                                PHP_URL_QUERY );
+
+diff --git a/wp-content/plugins/sitepress-multilingual-cms/sitepress.class.php b/wp-content/plugins/sitepress-multilingual-cms/sitepress.class.php
+index 1317f5a..de99c29 100644
+--- a/wp-content/plugins/sitepress-multilingual-cms/sitepress.class.php
++++ b/wp-content/plugins/sitepress-multilingual-cms/sitepress.class.php
+@@ -2960,6 +2960,8 @@ class SitePress extends WPML_WPDB_User{
+ 		$cache_key_args   = $template_args ? array_filter( $template_args ) : array( 'default' );
+ 		$cache_key_args[] = $current_language;
+ 		$cache_key_args[] = $default_language;
++		$cache_key_args[] = $_SERVER['REQUEST_URI'];
++
+ 		if ( isset( $this->wp_query->request ) ) {
+ 			$cache_key_args[] = $this->wp_query->request;
+ 		}
+
+
+diff --git a/wp-content/plugins/sitepress-multilingual-cms/inc/taxonomy-term-translation/wpml-term-translation.class.php b/wp-content/plugins/sitepress-multilingual-cms/inc/taxonomy-term-translation/wpml-term-translation.class.php
+index b3082de40..353c125e9 100644
+--- a/wp-content/plugins/sitepress-multilingual-cms/inc/taxonomy-term-translation/wpml-term-translation.class.php
++++ b/wp-content/plugins/sitepress-multilingual-cms/inc/taxonomy-term-translation/wpml-term-translation.class.php
+@@ -122,12 +122,16 @@ class WPML_Term_Translation extends WPML_Element_Translation {
+ 	private function maybe_warm_term_id_cache() {
+ 
+ 		if ( ! isset( $this->ttids ) || ! isset( $this->term_ids ) ) {
+-			$data           = $this->wpdb->get_results( "	SELECT t.element_id, tax.term_id, tax.taxonomy
+-													 " . $this->get_element_join() . "
+-													 JOIN {$this->wpdb->terms} terms
+-													  ON terms.term_id = tax.term_id
+-													 WHERE tax.term_id != tax.term_taxonomy_id",
+-			                                      ARRAY_A );
++			$element_join = $this->get_element_join() ;
++			$wpdb_terms = $this->wpdb->terms ;
++			$data = get_data_from_cache('maybe_warm_term_id_cache','pwml', TIMEOUT_CACHE_TERMS , function() use($element_join, $wpdb_terms){
++				return $this->wpdb->get_results( "	SELECT t.element_id, tax.term_id, tax.taxonomy
++														 " . $element_join . "
++														 JOIN {$wpdb_terms} terms
++														  ON terms.term_id = tax.term_id
++														 WHERE tax.term_id != tax.term_taxonomy_id",
++				                                      ARRAY_A );
++			},false);
+ 			$this->term_ids = array();
+ 			$this->ttids    = array();
+ 			foreach ( $data as $row ) {
+
+diff --git a/wp-content/plugins/sitepress-multilingual-cms/classes/query-filtering/class-wpml-query-parser.php b/wp-content/plugins/sitepress-multilingual-cms/classes/query-filtering/class-wpml-query-parser.php
+index cd76943b9..d8cab3cbf 100644
+--- a/wp-content/plugins/sitepress-multilingual-cms/classes/query-filtering/class-wpml-query-parser.php
++++ b/wp-content/plugins/sitepress-multilingual-cms/classes/query-filtering/class-wpml-query-parser.php
+@@ -453,8 +453,7 @@ class WPML_Query_Parser {
+                $permalink   = $this->sitepress->get_wp_api()->get_permalink( $post_id );
+                if ( ! $this->is_permalink_part_of_request( $permalink, $request_uri[0] ) ) {
+                        if ( isset( $request_uri[1] ) ) {
+-                               $lang = substr( $request_uri[1], strpos( $request_uri[1], '=' ) + 1 );
+-                               $permalink = add_query_arg( array( 'lang' => $lang ), $permalink );
++                               $permalink .= '?' . $request_uri[1];
+                        }
+                        $redirect = $permalink;
+                }
+
+
+diff --git a/wp-content/plugins/sitepress-multilingual-cms/res/js/sitepress.js b/wp-content/plugins/sitepress-multilingual-cms/res/js/sitepress.js
+index 36ac637e75..6b5799f533 100755
+--- a/wp-content/plugins/sitepress-multilingual-cms/res/js/sitepress.js
++++ b/wp-content/plugins/sitepress-multilingual-cms/res/js/sitepress.js
+@@ -1,9 +1,9 @@
+-"use strict";
+ 
+ var icl_lang = icl_vars.current_language;
+ var icl_home = icl_vars.icl_home;
+ 
+ function addLoadEvent(func) {
++  "use strict";
+   var oldonload = window.onload;
+   if (typeof window.onload != 'function') {
+     window.onload = func;

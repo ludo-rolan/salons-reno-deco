@@ -1,0 +1,7 @@
+header.v2{	
+	.navbar_elem_wrapper{
+		display: flex;
+		@include justify-content(space-between);
+		@include align-items(center);
+	}
+}

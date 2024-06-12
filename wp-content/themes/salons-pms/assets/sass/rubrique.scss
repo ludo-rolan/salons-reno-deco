@@ -1,0 +1,23 @@
+// Mobile
+@import "rubrique_mobile";
+
+//Tablet
+@media (min-width: $screen-sm-min){
+	@import "components/desktop/sub-categories_tablet";
+	@import "components/desktop/carousel_tablet";
+	@import "components/desktop/bloc_rubrique_tablet";
+	@import "components/desktop/text-bloc_tablet";
+	@import "components/desktop/pagination_tablet";
+	.archive{
+		.page-title{
+			margin-bottom: 0;
+		}
+	}
+	@import "components/base/header-visuel";
+}
+
+//Desktop
+// @media (min-width: $screen-md-min){}
+
+//Large Screens
+// @media (min-width: $screen-lg-min){}

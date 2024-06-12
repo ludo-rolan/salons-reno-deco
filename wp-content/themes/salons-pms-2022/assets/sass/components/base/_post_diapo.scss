@@ -1,0 +1,109 @@
+.block_diapo {
+	.visu_block {
+		position: relative;
+	}
+	figure{
+		img {
+			width: 100%;
+		}
+	}
+	.keyboard_nav{
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		text-align: center;
+		color: #fff;
+		img{
+			width: 190px;
+			height: 154px;
+			margin-bottom: 5px;
+		}
+		&_txt{
+			margin-top: -45px;
+			text-shadow: 0px 0px 30px rgba(150, 150, 150, 1);
+		}
+	}
+	.btn-navs {
+		width: 30px;
+		height: 30px;
+		position: absolute;
+		top: 50%;
+		@include translateY(-50%);
+		@include border-radius(50px);
+		cursor: pointer;
+		background-color: $main-color;
+		@include transition(opacity .2s linear);
+		background-position: center center;
+		background-repeat: no-repeat;
+		@include opacity(.5);
+		@include background-size(6px);
+
+		&:hover{
+			@include opacity(1);
+		}
+	}
+	._left {
+		left: 10px;
+		background-image: url(../images-v3/carousel_prev_arrow.png);
+	}
+	._right {
+		right: 10px;
+		background-image: url(../images-v3/carousel_next_arrow.png);
+	}
+	.list_thumbs {
+		display: none;
+	}
+	.widgetLegende {
+		min-height: 45px;
+		padding: 20px;
+		color: #fff;
+		background-color: $main-color;
+	}
+	.lists_legend {
+		padding-left: 0;
+		margin-bottom: 0;
+
+		list-style: none;
+
+		p {
+			margin-top: 10px;
+			margin-bottom: 0;
+			@include commuters-sans-regular;
+			font-size: 14px;
+			line-height: 1.3em;
+			color: #fff;
+		}
+		li {
+			display: none;
+			&.active {
+				display: block;
+			}
+		}
+		.active_slide {
+			float: left;
+			margin-right: 10px;
+			@include commuters-sans-bold;
+			font-size: 17px;
+		}
+		.legend_title {
+			@include commuters-sans-bold;
+			font-size: 17px;
+		}
+		.legende_excerpt{
+			margin-top: 5px;
+		}
+	}
+	.loading {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 24px;
+		height: 24px;
+		margin-right: -12px;
+		margin-left: -12px;
+		overflow: hidden;
+		text-indent: -444px;
+		background: transparent url(../images-v3/ajax-loader.gif) no-repeat center center;
+	}
+}

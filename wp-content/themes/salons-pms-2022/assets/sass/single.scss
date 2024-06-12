@@ -1,0 +1,15 @@
+@import "single_mobile";
+
+//Tablet
+@media (min-width: $screen-sm-min){
+	@import "components/desktop/bloc_rubrique_tablet";
+	.article_body_content{
+		min-height: 150px;
+	}
+}
+
+//Desktop
+// @media (min-width: $screen-md-min){}
+
+//Large Screens
+// @media (min-width: $screen-lg-min){}

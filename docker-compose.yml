@@ -1,0 +1,77 @@
+version: '2'
+
+services:
+
+  nginx:
+    image: nginx
+    #restart: always
+    volumes_from:
+      - volumes_source
+      - app
+      - volumes_data
+    volumes:
+        - ./dockers/etc/nginx/sites-enabled:/etc/nginx/sites-enabled
+        - ./dockers/etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+        - ./dockers/etc/nginx/default-location.conf:/etc/nginx/default-location.conf
+    ports:
+       - "${HTTPPORT}:80"
+    links:
+       - app:phpfpm
+
+
+  app:
+      image: wpk-wordpress
+      #restart: always
+      links:
+       - mysql
+      environment:
+       - WORDPRESS_DB_PASSWORD=password
+       - WORDPRESS_DB_HOST:mysql
+      volumes_from:
+        - volumes_source
+        - volumes_data
+      volumes:
+        - ./dockers/etc/php/php.ini:/usr/local/etc/php/php.ini
+        - ./dockers/etc/hosts:/etc/hosts
+
+      command : php-fpm
+  
+  memcached:
+    image: memcached
+    
+  mysql:
+      image: mysql:5.7.28
+      #restart: always
+      volumes_from:
+        - volumes_data
+      environment:
+       - MYSQL_ROOT_PASSWORD=password
+       - MYSQL_DATABASE=wordpress
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+        - mysql:db
+    #restart: always
+    ports:
+      - 8081:80
+    volumes:
+      - /sessions
+### Sources directory ##############@
+  volumes_source:
+    image: tianon/true
+    volumes:
+      - ./:/var/www/html
+      - ./robots.txt:/var/www/html/robots.txt
+
+
+### Databases Data Container ################################
+
+  volumes_data:
+      image: tianon/true
+      volumes:
+          - ${DATADIR}/data/mysql:/var/lib/mysql
+          - ${DATADIR}/data/uploads:/var/www/html/wp-content/uploads
+          - ${DATADIR}/dockers/etc/mysql/my.cnf:/etc/mysql/conf.d/rw_my.cnf
+
+### Add more Containers below ###############################

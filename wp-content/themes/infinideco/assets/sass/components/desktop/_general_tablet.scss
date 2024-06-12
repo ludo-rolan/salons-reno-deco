@@ -1,0 +1,30 @@
+#container{
+	padding: 10px 0;
+}
+
+#left_wrapper{
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.btn{
+	// .btn-lg
+	&-lg{
+		width: auto;
+		padding-left: 100px;
+		padding-right: 100px;
+	}
+}
+
+.default-title {
+	font-size: 32px;
+}
+
+
+.page{
+	// .page-title
+	&-title{
+		font-size: 42px;
+		margin-bottom: 15px;
+	}
+}

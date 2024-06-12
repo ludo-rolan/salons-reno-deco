@@ -1,0 +1,124 @@
+
+$path_fonts_core: '/wp-content/themes/core/assets/fonts/';
+
+@font-face {
+    font-family: 'ProximaNova-Regular';
+    font-display: swap;
+    src: url($path_fonts_core + 'ProximaNova/ProximaNova-Regular.eot');
+    src: url($path_fonts_core + 'ProximaNova/ProximaNova-Regular.eot') format('embedded-opentype'),
+         url($path_fonts_core + 'ProximaNova/ProximaNova-Regular.svg#ProximaNova-Regular') format('svg'),
+         url($path_fonts_core + 'ProximaNova/ProximaNova-Regular.woff') format('woff'),
+         url($path_fonts_core + 'ProximaNova/ProximaNova-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'ProximaNova-Semibold';
+    font-display: swap;
+    src: url($path_fonts_core + 'ProximaNova/ProximaNova-Semibold.eot');
+    src: url($path_fonts_core + 'ProximaNova/ProximaNova-Semibold.eot') format('embedded-opentype'),
+         url($path_fonts_core + 'ProximaNova/ProximaNova-Semibold.svg#ProximaNova-Semibold') format('svg'),
+         url($path_fonts_core + 'ProximaNova/ProximaNova-Semibold.woff') format('woff'),
+         url($path_fonts_core + 'ProximaNova/ProximaNova-Semibold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'ProximaNova-Bold';
+    font-display: swap;
+    src: url($path_fonts_core + 'ProximaNova/ProximaNova-Bold.eot');
+    src: url($path_fonts_core + 'ProximaNova/ProximaNova-Bold.eot') format('embedded-opentype'),
+         url($path_fonts_core + 'ProximaNova/ProximaNova-Bold.svg#ProximaNova-Bold') format('svg'),
+         url($path_fonts_core + 'ProximaNova/ProximaNova-Bold.woff') format('woff'),
+         url($path_fonts_core + 'ProximaNova/ProximaNova-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'ProximaNova-ExtraBold';
+    font-display: swap;
+    src: url($path_fonts_core + 'ProximaNova/ProximaNova-ExtraBold.eot');
+    src: url($path_fonts_core + 'ProximaNova/ProximaNova-ExtraBold.eot') format('embedded-opentype'),
+         url($path_fonts_core + 'ProximaNova/ProximaNova-ExtraBold.svg#ProximaNova-ExtraBold') format('svg'),
+         url($path_fonts_core + 'ProximaNova/ProximaNova-ExtraBold.woff') format('woff'),
+         url($path_fonts_core + 'ProximaNova/ProximaNova-ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'RobotoCondensed-Light';
+    font-display: swap;
+    src: url($path_fonts_core + 'RobotoCondensed/RobotoCondensed-Light.eot');
+    src: url($path_fonts_core + 'RobotoCondensed/RobotoCondensed-Light.eot') format('embedded-opentype'),
+         url($path_fonts_core + 'RobotoCondensed/RobotoCondensed-Light.svg#RobotoCondensed-Light') format('svg'),
+         url($path_fonts_core + 'RobotoCondensed/RobotoCondensed-Light.woff') format('woff'),
+         url($path_fonts_core + 'RobotoCondensed/RobotoCondensed-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'RobotoCondensed-Regular';
+    font-display: swap;
+    src: url($path_fonts_core + 'RobotoCondensed/RobotoCondensed-Regular.eot');
+    src: url($path_fonts_core + 'RobotoCondensed/RobotoCondensed-Regular.eot') format('embedded-opentype'),
+         url($path_fonts_core + 'RobotoCondensed/RobotoCondensed-Regular.svg#RobotoCondensed-Regular') format('svg'),
+         url($path_fonts_core + 'RobotoCondensed/RobotoCondensed-Regular.woff') format('woff'),
+         url($path_fonts_core + 'RobotoCondensed/RobotoCondensed-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'RobotoCondensed-Bold';
+    font-display: swap;
+    src: url($path_fonts_core + 'RobotoCondensed/RobotoCondensed-Bold.eot');
+    src: url($path_fonts_core + 'RobotoCondensed/RobotoCondensed-Bold.eot') format('embedded-opentype'),
+         url($path_fonts_core + 'RobotoCondensed/RobotoCondensed-Bold.svg#RobotoCondensed-Bold') format('svg'),
+         url($path_fonts_core + 'RobotoCondensed/RobotoCondensed-Bold.woff') format('woff'),
+         url($path_fonts_core + 'RobotoCondensed/RobotoCondensed-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Raleway-Light';
+    font-display: swap;
+    src: url($path_fonts_core + 'Raleway/Raleway-Light.eot');
+    src: url($path_fonts_core + 'Raleway/Raleway-Light.eot') format('embedded-opentype'),
+         url($path_fonts_core + 'Raleway/Raleway-Light.svg#Raleway-Light') format('svg'),
+         url($path_fonts_core + 'Raleway/Raleway-Light.woff') format('woff'),
+         url($path_fonts_core + 'Raleway/Raleway-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Raleway-Regular';
+    font-display: swap;
+    src: url($path_fonts_core + 'Raleway/Raleway-Regular.eot');
+    src: url($path_fonts_core + 'Raleway/Raleway-Regular.eot') format('embedded-opentype'),
+         url($path_fonts_core + 'Raleway/Raleway-Regular.svg#Raleway-Regular') format('svg'),
+         url($path_fonts_core + 'Raleway/Raleway-Regular.woff') format('woff'),
+         url($path_fonts_core + 'Raleway/Raleway-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Raleway-SemiBold';
+    font-display: swap;
+    src: url($path_fonts_core + 'Raleway/Raleway-SemiBold.eot');
+    src: url($path_fonts_core + 'Raleway/Raleway-SemiBold.eot') format('embedded-opentype'),
+         url($path_fonts_core + 'Raleway/Raleway-SemiBold.svg#Raleway-SemiBold') format('svg'),
+         url($path_fonts_core + 'Raleway/Raleway-SemiBold.woff') format('woff'),
+         url($path_fonts_core + 'Raleway/Raleway-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Raleway-Bold';
+    font-display: swap;
+    src: url($path_fonts_core + 'Raleway/Raleway-Bold.eot');
+    src: url($path_fonts_core + 'Raleway/Raleway-Bold.eot') format('embedded-opentype'),
+         url($path_fonts_core + 'Raleway/Raleway-Bold.svg#Raleway-Bold') format('svg'),
+         url($path_fonts_core + 'Raleway/Raleway-Bold.woff') format('woff'),
+         url($path_fonts_core + 'Raleway/Raleway-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'MyriadPro-Regular';
+    font-display: swap;
+    src: url($path_fonts_core + 'MyriadPro-Regular/MyriadPro-Regular.eot');
+    src: url($path_fonts_core + 'MyriadPro-Regular/MyriadPro-Regular.eot') format('embedded-opentype'),
+         url($path_fonts_core + 'MyriadPro-Regular/MyriadPro-Regular.svg#MyriadPro-Regular') format('svg'),
+         url($path_fonts_core + 'MyriadPro-Regular/MyriadPro-Regular.woff') format('woff'),
+         url($path_fonts_core + 'MyriadPro-Regular/MyriadPro-Regular.ttf') format('truetype');
+}
+
+@import url('https://use.typekit.net/ohk4yxs.css');

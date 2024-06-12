@@ -1,0 +1,21 @@
+@charset "UTF-8";
+@import "compass/css3";
+
+@import "../../../core/assets/bootstrap-sass/sass/variables";
+@import "utils/variables";
+
+@import "components/base/bloc-post";
+@import "components/base/filters";
+@import "components/base/pagination";
+
+.plan_salon{
+	// .plan_salon_visuel
+	&_visuel{
+		width: 100%;
+		margin-bottom: 20px;
+		background-color: #eee;
+	}
+	.btn{
+		margin-bottom: 25px;
+	}
+}

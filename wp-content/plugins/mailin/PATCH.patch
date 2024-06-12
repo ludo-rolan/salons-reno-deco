@@ -1,0 +1,46 @@
+diff --git a/wp-content/plugins/mailin/sendinblue.php b/wp-content/plugins/mailin/sendinblue.php
+index b4a6672..c1c70d9 100755
+--- a/wp-content/plugins/mailin/sendinblue.php
++++ b/wp-content/plugins/mailin/sendinblue.php
+@@ -901,9 +901,10 @@ if ( ! class_exists( 'SIB_Manager' ) ) {
+                                     $bcc[ trim( $bcc_content ) ] = '';
+                                 } else {
+ 
+-							        if (!empty(trim( $content ))) {
++                                	$content = trim( $content );
++							        if (!empty($content)) {
+                                         $data['bcc'] = [
+-                                                ['email' => trim( $content )]
++                                                ['email' => $content]
+                                         ];
+                                     }
+                                 }
+@@ -913,8 +914,9 @@ if ( ! class_exists( 'SIB_Manager' ) ) {
+                                 {
+                                     $cc_content = substr( $content, strpos( $content, '<' ) + 1 );
+                                     $cc_content = str_replace( '>', '', $cc_content );
+-                                    if (!empty(trim( $cc_content ))) {
+-                                        $data['cc'] = ['email' =>  trim( $cc_content )];
++                                    $cc_content = trim( $cc_content );
++                                    if (!empty($cc_content)) {
++                                        $data['cc'] = ['email' =>  $cc_content];
+                                     }
+                                 }
+ 								break;
+
+diff --git a/wp-content/plugins/mailin/page/page-home.php b/wp-content/plugins/mailin/page/page-home.php
+index 521c9e8..578e34d 100755
+--- a/wp-content/plugins/mailin/page/page-home.php
++++ b/wp-content/plugins/mailin/page/page-home.php
+@@ -582,9 +582,8 @@ if ( ! class_exists( 'SIB_Page_Home' ) ) {
+            } catch ( Exception $e ) {
+                $message = $e->getMessage();
+                 delete_option(SIB_Manager::API_KEY_V3_OPTION_NAME);
+-           } finally {
+-                wp_send_json($message);
+-            }
++           }
++            wp_send_json($message);
+        }
+ 
+        /** Ajax module to change activate marketing automation option */

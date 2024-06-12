@@ -1,0 +1,325 @@
+diff --git a/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js b/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
+index 99ee2ff..5124e82 100755
+--- a/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
++++ b/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
+@@ -5420,7 +5420,7 @@ VPAIDIntegrator.prototype._createVPAIDAdUnitWrapper = function(adUnit, src, resp
+ VPAIDIntegrator.prototype._loadAdUnit = function (tech, vastResponse, next) {
+   var that = this;
+   var player = this.player;
+-  var vjsTechEl = player.el().querySelector('.vjs-tech');
++  var vjsTechEl = player.el().querySelector('video.vjs-tech');
+   var responseTimeout = this.settings.responseTimeout || this.options.responseTimeout;
+   tech.loadAdUnit(this.containerEl, vjsTechEl, function (error, adUnit) {
+     if (error) {
+@@ -6096,15 +6096,20 @@ module.exports = function VASTPlugin(options) {
+         player.pause();
+         addSpinnerIcon();
+ 
++        setTimeout( function(){
++	        if(player.paused()) {
++	          next(null); 
++	        } else {
++	          playerUtils.once(player, ['playing'], function() {
++	            player.pause();
++	            next(null);
++	          });
++	        }
++        	
++        }, 1000);
++
++
+ 
+-        if(player.paused() ) {
+-          next(null); 
+-        } else {
+-          playerUtils.once(player, ['playing'], function() {
+-            player.pause();
+-            next(null);
+-          });
+-        }
+       } else {
+         next(new VASTError('video content has been playing before preroll ad'));
+       }
+
+
+diff --git a/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js b/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
+index 5124e82..7c2cd43 100755
+--- a/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
++++ b/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
+@@ -6037,7 +6037,6 @@ module.exports = function VASTPlugin(options) {
+       removeAdUnit();
+       restoreVideoContent();
+     });
+-
+     async.waterfall([
+       checkAdsEnabled,
+       preparePlayerForAd,
+@@ -6169,6 +6168,7 @@ module.exports = function VASTPlugin(options) {
+ 
+   function getVastResponse(callback) {
+     vast.getVASTResponse(settings.adTagUrl ? settings.adTagUrl() : settings.adTagXML, callback);
++    player.trigger('vast.call_tag_ads');
+   }
+ 
+   function playAd(vastResponse, callback) {
+@@ -6196,6 +6196,9 @@ module.exports = function VASTPlugin(options) {
+     player.vast.vastResponse = vastResponse;
+     logger.debug ("calling adIntegrator.playAd() with vastResponse:", vastResponse);
+     player.vast.adUnit = adIntegrator.playAd(vastResponse, callback);
++    
++    player.trigger('vast.vast-ready');
++
+ 
+     /*** Local functions ****/
+     function addAdsLabel() {
+
+diff --git a/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js b/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
+index 7c2cd43..18f7ae3 100755
+--- a/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
++++ b/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
+@@ -639,7 +639,7 @@ var FlashTester = function () {
+             utils.hideFlashEl(this.el);
+             this._flash = new JSFlashBridge(this.el, swfConfig.data, FLASH_TEST_EL, swfConfig.width, swfConfig.height, function () {
+                 var support = true;
+-                _this._isSupported = support;
++                 _this._isSupported = support;
+                 _this._handlers.get('change').forEach(function (callback) {
+                     setTimeout(function () {
+                         callback('change', support);
+
+
+diff --git a/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js b/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
+index 3a306ab..79413fe 100755
+--- a/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
++++ b/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
+@@ -3524,20 +3524,27 @@ VASTClient.prototype._getVASTAd = function (adTagUrl, callback) {
+   var that = this;
+ 
+   getAdWaterfall(adTagUrl, function (error, vastTree) {
+-    var waterfallAds = vastTree && utilities.isArray(vastTree.ads) ? vastTree.ads : null;
++    that.waterfallAds=[];
++    var ads = vastTree && utilities.isArray(vastTree.ads) ? vastTree.ads : null;
++
+     if (error) {
+-      that._trackError(error, waterfallAds);
+-      return callback(error, waterfallAds);
++      that._trackError(error, ads);
++      return callback(error, ads);
+     }
++    var ad = ads.shift() ;
++    for(var i=0; i<ads.length; i++ ){ 
++    that.waterfallAds.push([ads[i], []]);
++  }
+ 
+-    getAd(waterfallAds.shift(), [], waterfallHandler);
++    getAd(ad, [], waterfallHandler);
+ 
+     /*** Local functions ***/
+     function waterfallHandler(error, adChain) {
+       if (error) {
+         that._trackError(error, adChain);
+-        if (waterfallAds.length > 0) {
+-          getAd(waterfallAds.shift(),[], waterfallHandler);
++        if (that.waterfallAds.length > 0) {
++          var  ads = that.waterfallAds.shift() ;
++          getAd(ads[0], ads[1], waterfallHandler);
+         } else {
+           callback(error, adChain);
+         }
+@@ -3594,13 +3601,14 @@ VASTClient.prototype._getVASTAd = function (adTagUrl, callback) {
+     if (adChain.length >= that.WRAPPER_LIMIT) {
+       return callback(new VASTError("on VASTClient.getVASTAd.getAd, players wrapper limit reached (the limit is " + that.WRAPPER_LIMIT + ")", 302), adChain);
+     }
+-
++    that.adChain = adChain ;
+     async.waterfall([
+       function (next) {
+         if (utilities.isString(adTagUrl)) {
+           requestVASTAd(adTagUrl, next);
+         } else {
+           next(null, adTagUrl);
++
+         }
+       },
+       buildAd
+@@ -3621,10 +3629,25 @@ VASTClient.prototype._getVASTAd = function (adTagUrl, callback) {
+     });
+   }
+ 
+-  function buildAd(adJxonTree, callback) {
++  function buildAd(adJxonTree, callback) { 
+     try {
+-      var ad = new Ad(adJxonTree);
+-      callback(validateAd(ad), ad);
++
++      if(utilities.isArray(adJxonTree)){
++
++        var adJxonTreeShild = adJxonTree.shift()
++
++        var length = adJxonTree.length ;
++        for(var i=0; i<length; i++ ){ 
++          that.waterfallAds.push([adJxonTree[i], that.adChain]);
++        }
++       var ad = new Ad(adJxonTreeShild);
++          callback(validateAd(ad), ad);
++
++      }else{
++        var ad = new Ad(adJxonTree);
++        callback(validateAd(ad), ad);
++      }
++
+     } catch (e) {
+       callback(new VASTError('on VASTClient.getVASTAd.buildAd, error parsing xml', 100), null);
+     }
+@@ -4075,8 +4098,11 @@ VASTIntegrator.prototype._addClickThrough = function addClickThrough(mediaFile,
+ 
+ VASTIntegrator.prototype._playSelectedAd = function playSelectedAd(source, response, callback) {
+   var player = this.player;
++  try{
++    player.preload("auto"); //without preload=auto the durationchange event is never fired
++  }catch(e){
+ 
+-  player.preload("auto"); //without preload=auto the durationchange event is never fired
++  }
+   player.src(source);
+ 
+   logger.debug ("<VASTIntegrator._playSelectedAd> waiting for durationchange to play the ad...");
+@@ -5211,7 +5237,7 @@ VPAIDHTML5Tech.prototype.loadAdUnit = function loadAdUnit(containerEl, videoEl,
+       throw new VASTError(VPAIDHTML5Tech.INVALID_DOM_CONTAINER_EL );
+     }
+     if (!dom.isDomElement(video) || video.tagName.toLowerCase() !== 'video') {
+-    	console.log( videoEl ); 
++      console.log( videoEl ); 
+       throw new VASTError(VPAIDHTML5Tech.INVALID_DOM_CONTAINER_EL + ' VIDEO');
+     }
+ 
+@@ -6096,15 +6122,15 @@ module.exports = function VASTPlugin(options) {
+         addSpinnerIcon();
+ 
+         setTimeout( function(){
+-	        if(player.paused()) {
+-	          next(null); 
+-	        } else {
+-	          playerUtils.once(player, ['playing'], function() {
+-	            player.pause();
+-	            next(null);
+-	          });
+-	        }
+-        	
++          if(player.paused()) {
++            next(null); 
++          } else {
++            playerUtils.once(player, ['playing'], function() {
++              player.pause();
++              next(null);
++            });
++          }
++          
+         }, 1000);
+ 
+
+ diff --git a/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js b/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
+index 29cc8bd..b13dbf4 100755
+--- a/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
++++ b/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
+@@ -4836,7 +4836,7 @@ var vastUtil = {
+   ],
+ 
+   isVPAID: function isVPAIDMediaFile(mediaFile) {
+-    return !!mediaFile && mediaFile.apiFramework === 'VPAID';
++    return !!mediaFile && mediaFile.apiFramework === 'VPAID' /*&&  mediaFile.type.toLocaleLowerCase().indexOf('flash') < 0*/;
+   },
+ 
+   findSupportedVPAIDTech: function findSupportedVPAIDTech(mimeType) {
+
+ 
+
+diff --git a/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js b/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
+index 7ad26b6..940305e 100644
+--- a/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
++++ b/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
+@@ -7151,7 +7151,10 @@ playerUtils.restorePlayerSnapshot = function restorePlayerSnapshot(player, snaps
+     restoreTracks();
+ 
+     if (snapshot.playing) {
+-      player.play();
++      //player.play();
++    	player.src({src: snapshot.src, type: snapshot.type});
++      
++
+     }
+   }
+
+diff --git a/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js b/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
+index 6bf6cfc..e28d273 100644
+--- a/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
++++ b/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
+@@ -5329,6 +5329,12 @@ VPAIDIntegrator.prototype.playAd = function playVPaidAd(vastResponse, callback)
+     return callback(new VASTError('on VASTIntegrator.playAd, missing required VASTResponse'));
+   }
+ 
++  vastResponse.mediaFiles.sort(function compareTo(a, b) {
++    var deltaA = a.type.toLocaleLowerCase().indexOf('flash') < 0 ? 0:1;
++    var deltaB = b.type.toLocaleLowerCase().indexOf('flash') < 0 ? 0:1;
++    return deltaA - deltaB;
++  });
++
+   var that = this;
+   var player = this.player;
+   logger.debug ("<VPAIDIntegrator.playAd> looking for supported tech...");
+
+
+diff --git a/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js b/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
+index e28d273..06f3b09 100644
+--- a/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
++++ b/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
+@@ -7160,6 +7160,11 @@ playerUtils.restorePlayerSnapshot = function restorePlayerSnapshot(player, snaps
+     if (snapshot.playing) {
+       //player.play();
+     	player.src({src: snapshot.src, type: snapshot.type});
++    	try{
++    		player.play();
++    	}catch(e){
++
++    	}
+       
+ 
+     }
+
+
+diff --git a/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js b/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
+index 06f3b09..91e0a5b 100644
+--- a/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
++++ b/wp-content/themes/reworldmedia/assets/videojs-plugins/videojs-vast-vpaid/videojs_4.vast.vpaid.js
+@@ -7242,19 +7242,19 @@ playerUtils.restorePlayerSnapshot = function restorePlayerSnapshot(player, snaps
+ 
+ playerUtils.isReadyToResume = function (player) {
+ 
+-  if (player.readyState() > 1) {
++  if (player.readyState && player.readyState() > 1) {
+     // some browsers and media aren't "seekable".
+     // readyState greater than 1 allows for seeking without exceptions
+     return true;
+   }
+ 
+-  if (player.seekable() === undefined) {
++  if (player.seekable && player.seekable() === undefined) {
+     // if the player doesn't expose the seekable time ranges, try to
+     // resume playback immediately
+     return true;
+   }
+ 
+-  if (player.seekable().length > 0) {
++  if (player.seekable && player.seekable().length > 0) {
+     // if some period of the video is seekable, resume playback
+     return true;
+   }
+
+
+
+ 
+
+
+
+
+

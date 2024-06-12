@@ -1,0 +1,16 @@
+.breadcrumb{
+	margin-bottom: 10px;
+	>li{
+		font-family: $second-font-bold;
+		text-transform: uppercase;
+		a{
+			color: $main_color;
+		}
+		+li:before{
+			content: "/";
+			display: inline-block;
+			margin-left: 2px;
+			margin-right: 2px;
+		}
+	}
+}

@@ -1,0 +1,73 @@
+@media ( max-width: $screen-xs-max ) {
+
+	#content {
+		.default-title {
+			margin-bottom: 5px;
+		}
+	}
+
+	#carousel-gallery-generic {
+		margin-bottom: 10px;
+		.carousel{
+			//.carousel-caption
+			&-caption {
+				h2 {
+					font-size: 20px;
+				}
+			}
+			//.carousel-control
+			&-control{
+				width: 30px;
+				height: 30px;
+			}
+		}
+	}
+
+	body.adaptation_habillage_1000px_155809078.bug_marges_format_habillage_5897 {
+		#container>.container{
+			padding-left: 0 !important;
+			padding-right: 0 !important;
+		}
+	}
+
+	.bloc_rubrique {
+		.post {
+			&_img{
+				img{
+					width: 100%;
+				}
+			}
+		}
+	}
+
+	.items-small-list{
+		padding-left: 15px;
+		padding-right: 15px;
+
+	}
+
+	.playlist_ .playlist_thumbnails {
+		.slick-next,.slick-prev{
+			display:none !important;
+		}
+
+	}
+    #rw_alert_cookies.alert-warning {
+        .container {
+            .response-coockies {
+                font-size: 9px!important;
+            }
+        }
+    }
+
+    #content {
+    	#results { 
+	    	.thecontent {
+	    		iframe#grdf-avantages-gaz-naturel-renovation-chauffage-grand-froid-2, 
+	    		iframe#grdf-avantages-gaz-naturel-renovation-chauffage-competitivite-2 {
+		    		height: 432px;
+		    	}
+		    }
+		}
+    } 
+}

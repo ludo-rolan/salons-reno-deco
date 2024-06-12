@@ -1,0 +1,12 @@
+--- a/wp-content/plugins/wp-missed-schedule/wp-missed-schedule.php
++++ b/wp-content/plugins/wp-missed-schedule/wp-missed-schedule.php
+@@ -295,6 +295,9 @@ Network: true
+  SELECT ID FROM {$wpdb->posts} WHERE ( ( post_date > 0 && post_date <= %s ) ) AND post_status = 'future' LIMIT 0,10 
+ SQL;
+ 
++					$qry = apply_filters('rw_force_cache_queries', $qry); 
++
++
+ 					$sql = $wpdb->prepare( $qry, current_time( 'mysql', 0 ) );
+ 
+ 					$scheduledIDs = $wpdb->get_col( $sql );

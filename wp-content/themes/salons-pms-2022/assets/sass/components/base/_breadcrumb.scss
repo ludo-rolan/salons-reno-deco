@@ -1,0 +1,25 @@
+.breadcrumb{
+	margin-bottom: 10px;
+	text-align: center;
+	>li{
+		@include commuters-sans-regular;
+		font-size: 15px;
+		text-transform: uppercase;
+		a{
+			color: $main_color;
+		}
+		+li:before{
+			content: " > ";
+			display: inline-block;
+			margin-left: 2px;
+			margin-right: 2px;
+		}
+	}
+}
+@media screen and (max-width: $screen-md-min) {
+	.breadcrumb{
+		>li{
+			font-size: 12px;
+		}
+	}
+}

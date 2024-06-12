@@ -1,0 +1,159 @@
+.header-visuel {
+	position: relative;
+	background-position: bottom;
+	background-size: cover;
+	background-repeat: no-repeat;
+	overflow: hidden;
+	margin-bottom: -50px;
+	width: 100%;
+	text-align: center;
+	background-image: url('../images-v3/header_hp_bg.jpg');
+	.container {
+		.row {
+			margin-left: 0;
+			margin-right: 0;
+		}
+	}
+	
+	// .header-visuel-container
+	&-container {
+		position: relative;
+		height: 700px;
+		color: #fff;
+	}
+	// .header-visuel-content
+	&-content {
+		position: absolute;
+		left: 0;
+		bottom: 230px;
+	}
+	.media-body{
+		padding-top: 20px;
+		padding-bottom: 20px;
+		padding-left: 15px;
+	}
+	// .header-visuel-text
+	&-text {
+		@include commuters-sans-extrabold();
+		font-size: 52px;
+		line-height: 53px;
+		letter-spacing: 0.52px;
+		text-transform: uppercase;
+	}
+	// .header-visuel-date
+	&-date {
+		@include commuters-sans-semibold();
+		font-size: 42px;
+		line-height:53px;
+		letter-spacing: 2.52px;
+		text-transform: uppercase;
+	}
+	// .header-visuel-title
+	&-title {
+		@include commuters-sans-semibold();
+		font-size: 32px;
+		line-height: 40px;
+		letter-spacing: 0.64px;
+		margin-bottom: 6px;
+		text-transform: uppercase;
+	}
+	
+	.btn-primary {
+		padding: 15px 55px;
+		border-radius: 90px;
+		background-color: #fff;
+		color: #000;
+		border: 1px solid #000;
+		&:hover {
+			color: #000;
+			background-color: #fff;
+		}
+	}
+	.exposant{
+		// .exposant_name
+		&_name{
+			font-size: 32px;
+			font-family: $fourth-font;
+			text-transform: uppercase;
+			line-height: 1.2;
+		}
+		// .exposant_cat
+		&_cat{
+			font-size: 16px;
+			@include commuters-sans-bold;
+			text-transform: uppercase;
+			line-height: 1.2;
+		}
+	}
+}
+
+body {
+	&.home,&.category-actualite {
+		.header-visuel {
+			margin-bottom: 20px;
+		}
+	}
+	&.single-exposant {
+		.header-visuel {
+			background-image: url('../images-v3/fond_slider.jpg');
+		}
+	}
+}
+
+.home,.category-actualite{
+	.title_home{
+		display: none;
+	}
+}
+
+@media( max-width: $screen-xs-max){
+	.header-visuel {
+		background-image: url('../images-v3/header_hp_bg_mobile.png');
+		background-size: cover;
+		height: 300px;
+		// .header-visuel-text
+		&-text{
+			font-size:24px;
+			line-height: 18px;
+			letter-spacing: 0.53px;
+		}
+		// .header-visuel-date
+		&-date {
+			font-size: 21px;
+			line-height: 18px;
+			letter-spacing: 0.46px;
+		}
+		// .header-visuel-title
+		&-title {
+			font-size: 15px;
+			line-height: 18px;
+			letter-spacing: 0.43px;
+		}
+		&-text,&-date,&-title{
+			margin-bottom: 6px;
+		}
+		&-container {
+			height: 252px;
+		}
+
+		&-content{
+			width: 100%;
+			padding-left: 10px;
+			padding-right: 10px;
+			bottom: 0;
+		}
+		.btn-primary{
+			margin-top: 0;
+			padding: 10px 16px;
+			border-radius: 50px;
+			border: 1px solid #000;
+			font-size: 10px;
+			background-color: #fff;
+			color: #000;
+			&:hover {
+				background-color: #fff !important;
+				color: black;
+			}
+		}
+	}
+}

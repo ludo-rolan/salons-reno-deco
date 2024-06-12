@@ -1,0 +1,2 @@
+# to do changer le host salonsrenoprod.maison-travaux.fr par le lien de prod
+0 0 * * * php /wp-content/themes/core/include/functions/cron.php salonsrenoprod.maison-travaux.fr >> /scripts/crontab/logs/cron_go_cron_ga.log

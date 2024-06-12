@@ -1,0 +1,19 @@
+.navbar-site .default-toggle {
+	display: block;
+	position: absolute;
+	background-color: rgba(0,0,0,.1);
+	width: 40px;
+	padding: 0;
+	height: 36px;
+	text-align: center;
+	border: 0px solid transparent;
+	left: 0;
+	z-index: 1010;
+	.icon-bar {
+		width: 16px;
+		height: 2px;
+		background: #ffffff;
+		display: block;
+		margin: 3px auto;
+	}
+}

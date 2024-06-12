@@ -1,0 +1,16 @@
+// Only mobile
+@media (max-width: $screen-xs-max){
+	#content{
+		padding-left: 20px;
+		padding-right: 20px;
+		margin-bottom: 30px;
+		.default-title {
+			margin-bottom: 14px;
+		}
+	}
+	.filters{
+		width: 100%;
+		max-width: 130px;
+		margin: 0 auto;
+	}
+}

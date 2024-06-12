@@ -1,0 +1,40 @@
+#partage-social {
+    display: block;
+
+    .share-buttons {
+        .blockShare_horizontal {
+            display: inline-block;
+            vertical-align: middle;
+
+            ul {
+                padding: 0;
+
+                li {
+                    display: inline-block;
+                    font-size: 28px;
+                    cursor: pointer;
+                    margin-right: 20px;
+                }
+            }
+        }
+    }
+    h2{
+        font-size: 26px;
+        margin-bottom: 15px;
+        margin-top:20px;
+        font-weight: bold;
+    }
+
+    .social.blockShare_horizontal {
+        float: left;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 40px;
+        overflow: hidden;
+        ul {
+            list-style: none;
+            margin-top: 22px;
+        }
+    }
+}

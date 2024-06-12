@@ -1,0 +1,115 @@
+diff --git a/wp-content/plugins/wpml-translation-management/menu/dashboard/wpml-tm-dashboard-display-filter.class.php b/wp-content/plugins/wpml-translation-management/menu/dashboard/wpml-tm-dashboard-display-filter.class.php
+index 6d7654ef2..1358eef59 100644
+--- a/wp-content/plugins/wpml-translation-management/menu/dashboard/wpml-tm-dashboard-display-filter.class.php
++++ b/wp-content/plugins/wpml-translation-management/menu/dashboard/wpml-tm-dashboard-display-filter.class.php
+@@ -70,6 +70,28 @@ class WPML_TM_Dashboard_Display_Filter {
+     <?php
+     }
+ 
++
++    private function post_notin_language_select() {
++        ?>
++        <label for="filter_to_lang">
++            <strong><?php _e( 'Not translated to:', 'wpml-translation-management' ); ?></strong>
++        </label>
++        <select id="filter_to_lang" name="filter[post_notin_language]">
++            <option value=""><?php _e( 'All languages', 'wpml-translation-management' ) ?></option>
++            <?php
++            foreach ( $this->active_languages as $lang ) {
++                $selected = selected( $this->translation_filter[ 'post_notin_language' ], $lang[ 'code' ], false );
++                ?>
++                <option value="<?php echo $lang[ 'code' ] ?>" <?php echo $selected; ?>>
++                    <?php echo $lang[ 'display_name' ] ?>
++                </option>
++            <?php
++            }
++            ?>
++        </select>
++    <?php
++    }
++
+     private function translation_status_select() {
+         ?>
+         <label for="filter_tstatus">
+@@ -134,6 +156,8 @@ class WPML_TM_Dashboard_Display_Filter {
+                 &nbsp;
+                 <?php $this->to_lang_select() ?>
+                 &nbsp;
++                <?php $this->post_notin_language_select() ?>
++                &nbsp;
+                 <?php $this->translation_status_select() ?>
+ 
+ 	            <?php $this->number_of_ducuments_select() ?>
+@@ -299,7 +323,7 @@ class WPML_TM_Dashboard_Display_Filter {
+         </label>
+         <select id="filter_limit_no" name="filter[limit_no]">
+ 			<?php
+-			foreach ( array( 10, 20, 50, 100 ) as $limit ) {
++			foreach ( array( 10, 20, 50, 100, 200,500,1000 ) as $limit ) {
+ 				$selected = selected( $this->translation_filter[ 'limit_no' ], $limit, false );
+ 				?>
+                 <option value="<?php echo $limit ?>" <?php echo $selected; ?>><?php echo $limit ?></option>
+diff --git a/wp-content/plugins/wpml-translation-management/menu/dashboard/wpml-tm-dashboard.class.php b/wp-content/plugins/wpml-translation-management/menu/dashboard/wpml-tm-dashboard.class.php
+index fce486a00..b299488d8 100644
+--- a/wp-content/plugins/wpml-translation-management/menu/dashboard/wpml-tm-dashboard.class.php
++++ b/wp-content/plugins/wpml-translation-management/menu/dashboard/wpml-tm-dashboard.class.php
+@@ -102,6 +102,7 @@ class WPML_TM_Dashboard {
+ 			'post_status'              => $args['status'],
+ 			'post_language'            => $args['from_lang'],
+ 			'post_language_to'         => $args['to_lang'],
++			'post_notin_language'         => $args['post_notin_language'],
+ 			'post_translation_status'  => $args['tstatus'],
+ 			'suppress_filters'         => false,
+ 			'update_post_meta_cache'   => false,
+@@ -109,6 +110,7 @@ class WPML_TM_Dashboard {
+ 			'no_found_rows'            => true,
+ 		);
+ 
++
+ 		if ( 'any' !== $args['parent_type'] ) {
+ 			switch ( $args['parent_type'] ) {
+ 				case 'page':
+@@ -164,6 +166,7 @@ class WPML_TM_Dashboard {
+ 	public function add_dashboard_filter_conditions( $where, &$wp_query ) {
+ 		$post_title_like = $wp_query->get( 'post_title_like' );
+ 		$post_language = $wp_query->get( 'post_language_to' );
++		$post_notin_language = $wp_query->get( 'post_notin_language' );
+ 		$post_translation_status = (int) $wp_query->get( 'post_translation_status' );
+ 		$translations_table_name = $this->wpdb->prefix . 'icl_translations';
+ 
+@@ -176,6 +179,11 @@ class WPML_TM_Dashboard {
+ 			WHERE {$translations_table_name}.language_code='%s')", $post_language );
+ 		}
+ 
++		if ( ! empty( $post_notin_language ) ) {
++			$where .= $this->wpdb->prepare( " AND t.trid not IN (SELECT trid FROM {$translations_table_name} 
++			WHERE {$translations_table_name}.language_code='%s')", $post_notin_language );
++		}
++
+ 		$post_type = $wp_query->get( 'post_type' );
+ 		if ( $post_translation_status >= 0 && $this->is_cpt_type( array(), $post_type[0] ) ) {
+ 			$where .= $this->build_translation_status_where( $post_translation_status );
+
+diff --git a/wp-content/plugins/wpml-translation-management/res/js/tm-dashboard/wpml-tm-dashboard.js b/wp-content/plugins/wpml-translation-management/res/js/tm-dashboard/wpml-tm-dashboard.js
+index 95de2c469..7febda5b9 100644
+--- a/wp-content/plugins/wpml-translation-management/res/js/tm-dashboard/wpml-tm-dashboard.js
++++ b/wp-content/plugins/wpml-translation-management/res/js/tm-dashboard/wpml-tm-dashboard.js
+@@ -58,6 +58,8 @@ var WPMLTMDashboard = Backbone.View.extend({
+ 					//});
+ 					var duplication_ui = new PostDuplication(post_ids, jQuery('#icl_dup_ovr_warn'));
+ 					duplication_ui.sendBatch();
++					
++
+ 				}
+ 			}
+     },
+@@ -257,7 +259,7 @@ var PostDuplication = Backbone.View.extend({
+ 													duplicate_target_languages: languages,
+ 													_icl_nonce:                 nonce
+ 												},
+-												success:  function () {
++												complete:  function () {
+ 													self.ui.change(postsToSend.length);
+ 													self.duplicatedIDs = self.duplicatedIDs.concat(postsToSend);
+ 													if (0 < self.posts.length) {
+

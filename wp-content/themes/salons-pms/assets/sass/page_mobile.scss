@@ -1,0 +1,16 @@
+@charset "UTF-8";
+@import "compass/css3";
+
+// @import "../../../core/assets/bootstrap-sass/sass/fonts";
+
+@import "../../../core/assets/bootstrap-sass/sass/variables";
+@import "utils/variables";
+
+.page{
+	// .page-content
+	&-content{
+		p{
+			margin-bottom: 25px;
+		}
+	}
+}
